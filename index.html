@@ -1,52 +1,103 @@
 <!DOCTYPE html>
-
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="./style.css" />
-  <title>Portfolio</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LT</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="mediaqueries.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&display=swap" rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet">
 </head>
 
-<body>
-  <header>
-      <h1>Luna Tian</h1>
-      <p> software developer </p>
-      <nav>
-          <ul>
-              <li><a href="#experience">Experience</a></li>
-              <li><a href="#about">About</a></li>
-              <li><a href="#projects">Projects</a></li>
-              <li><a href="#contact">Contact</a></li>
-          </ul>
-      </nav>
-  </header>
+<body>    
 
-  <section id="experience">
-    <h2>Experience</h2>
-    <p>Add Experience.</p>
-  </section>
-
-  <section id="projects">
-      <h2>Projects</h2>
-      <p>Add information about your projects here.</p>
-  </section>
-
-  <section id="about">
-      <h2>About</h2>
-      <p>Nĭ Hăo! I'm Luna Tian, a software developer in humanID.
-      </p>
-  </section>  
-
-  <section id="contact">
-      <h2>Contact</h2>
-      <p>Add your contact information and a contact form here.</p>
-  </section>
+    <div id="particles-js">
+        <div id="greeting">
+            <h1>LUNA TIAN</h1>
+            <h2>&nbspSoftware Engineer</h2>           
+        </div>
+        <div id="icon-down">
+        <a href="#about"><img src="assets/icons-down.png"> </a>
+        </div>
+    </div>
+    
 
 
+    <section id="about">
+        <nav id="desktop-nav">
+            <!-- <div class="logo">Luna Tian</div> -->
+            <div>
+                <ul class="nav-links">
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+        <nav id="hamburger-nav">
+            <!-- <div class="logo">Luna Tian</div> -->
+            <div class="hamburger-menu">
+                <div class = "hamburger-icon" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="menu-links">
+                    <li><a href="#about" onclick="toggleMenu()">About</a></li>
+                    <li><a href="#experience" onclick="toggleMenu()">Experience</a></li>
+                    <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
+                    <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
+                </div>
+            </div>
+        </nav>
 
-  <footer>
-      <p>&copy; 2024 Luna Tian. All rights reserved.</p>
-  </footer>
+        <section class="about-container">
+            
+            <div class="section__pic">
+                <img src="./assets/profile-img.jpg" alt="profile picture" class="about-pic">
+            </div>
+            <div class="section__text">
+                <p class="section__text">Hello, I am Luna Tian, a software engineer at humanID. 
+                    I gained my Bachelor's Degree from UC Berkley in CS major. 
+                    I like baking and playing bass during my spare time.
+                    A fun fact of me: I have an adorable silver-shaded cat, and I named him python.
+                </p>
+                <!-- <div class="btn-container">
+                    <button class="btn" onclick="window.open('./assets/resume.pdf')">Download CV</button>
+                    <button class="btn" onclick="location.href='./#contact'">Contact Info</button>
+                </div> -->
+                <div id="socials-container">
+                    <img src="./assets/linkedin2.png" alt="linkedin" 
+                    class="icon" onclick="location=href='https://www.linkedin.com/in/lunat618/'">
+                    <img src="./assets/github2.png" alt="github-profile" 
+                    class="icon" onclick="location=href='https://github.com/Lunasocute'">
+                    <img src="./assets/self.png" alt="cv" 
+                    class="icon" onclick="window.open('./assets/resume.pdf')">
+                </div>
+            </div> 
+            
+
+           
+        </section>
+        <img src="./assets/arrow.png" alt="Arrow icon" class="icon arrow" 
+        onclick="location.href='./#experience'">
+    </section>
+
+    
+     
+    <!-- particles js files -->
+    <script src="particles.js"></script>
+    <script src="app.js"></script>   
+    <script src="script.js"></script>
 </body>
-
 </html>

@@ -8,9 +8,12 @@
 }
 
 body {
-    color: white;
-    background-color: darkblue;
-    font-family: "Poppins", sans-serif;
+    color: rgb(255, 252, 242);
+    background-color: black;
+    font-family: "Roboto", sans-serif;
+    min-width: 600px; /* Set a minimum width for the body */
+    overflow-x: auto; 
+    overflow-y: auto; 
 }
 
 html {
@@ -21,7 +24,7 @@ html {
     width: 100%;
     height:100vh;
     background-image: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.35)), url("assets/moon.jpg");
-    background-size: cover;
+    background-size: cover;  
 }
 
 #greeting {
@@ -46,21 +49,35 @@ html {
     font-weight: normal;
 }
 
-#icon-down {
-    position:absolute;
-    left:48%;
-    top: 90vh;
+/* ICONS */
+
+.icon {
+    height: 2rem;
     cursor: pointer;
+}
+
+.arrow {
+    position:absolute;
+    left:47%;
+    top: 90vh;
 }
 
 /* TRANSITION */
 a, 
 .btn{
     transition: all 300ms ease;
+
 }
 
 
 /* DESKTOP NAV */
+.header {
+    position:fixed;
+    top: 12px; /* Stick it to the top */
+    width: 100%; /* Occupy full width */
+    right: 3%;
+    z-index: 100;
+}
 
 nav, 
 .nav-links {
@@ -70,17 +87,18 @@ nav,
 nav {
     justify-content: flex-end;;
     align-items: center;
-    height: 5vh;
+    height: 4vh;
 }
 
 .nav-links {
+    font-weight: 700;
     gap: 2rem;
     list-style: none;
-    font-size: 1.25rem;
+    font-size: 1rem;
 }
 
 a {
-    color:white;
+    color:rgb(255, 252, 242);;
     text-decoration:none;
     /* text-decoration-color: white; */
     transition: all 0.5s ease-in-out;
@@ -89,16 +107,16 @@ a {
 
 a:hover {
     color: grey;
-    /* text-decoration: underline; */
-    text-underline-offset: 1rem;
+    text-decoration: underline;
+    text-underline-offset: 0.5rem;
     text-decoration-color: rgb(181, 181, 181);
 }
 
-.logo {
+/* .logo {
     font-family: "Courgette";
     font-weight: 700;
     font-size: 2rem;
-}
+} */
 
 .logo:hover {
     cursor: default;
@@ -119,8 +137,8 @@ a:hover {
     display:flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 24px;
-    width: 30px;
+    height: 20px;
+    width: 26px;
     cursor: pointer;
 }
 
@@ -143,19 +161,19 @@ a:hover {
 }
 
 .menu-links a {
+    
     display: block;
     padding:10px;
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 1rem;
+    font-weight: 700;
     color: white;
-    text-decoration: none;
     transition: all 0.5s ease-in-out;
 }
 
 .menu-links a:hover {
     color: grey;
-    text-decoration: underline;
-    text-underline-offset: 1rem;
+    text-underline-offset: 0.5rem;
     text-decoration-color: rgb(181, 181, 181);
 }
 
@@ -168,7 +186,7 @@ a:hover {
 }
 
 .hamburger-icon.open span:first-child {
-    transform: rotate(45deg) translate(10px,5px);
+    transform: rotate(45deg) translate(7px,5.5px);
 }
 
 .hamburger-icon.open span:nth-child(2) {
@@ -176,7 +194,7 @@ a:hover {
 }
 
 .hamburger-icon.open span:last-child {
-    transform: rotate(-45deg) translate(10px,-5px);
+    transform: rotate(-45deg) translate(7px,-5.5px);
 }
 
 .hamburger-icon span:first-child {
@@ -208,59 +226,57 @@ section {
 .about-container {
     display: flex;
     gap: 2rem;
-    margin: 0 15%;
+    margin: 0 10%;
     padding: 0;
-}
-
-.section__pic,  .section__text{
-    
-    position:relative;
-    height: 200px;
-}
-
-
-#profile {
-    display: flex;
-    justify-content: center;
-    gap:5rem;
-    height: 80vh;
 }
 
 .section__pic {
     display: flex;
-    height: 350px;
-    width: 350px;
+    flex-direction: column;
+    height: 250px;
+    width: 250px;
     margin: auto 3%;
 }
 
+.about-pic {
+    border-radius: 1.5rem;
+}
+
+.title{
+    position: absolute;
+    top: 16px;
+    left:0px;
+    cursor: default;
+}
+.section__text__p1 {
+    font-size:12px;
+}
+
 .section__text {
+    min-width: 280px;
     align-self: center;
     text-align: center;
 }
 
 .section__text p {
-    font-weight: 400;
-    font-size:1.32em;
+    font-family: "Roboto Mono";
+    font-weight: 350;
+    font-size:1.2em;
     margin-bottom:1rem;
 }
 
 #socials-container {
     display:flex;
     justify-content: center;
-    margin-top:1rem;
-    gap:1rem;
+    margin-top:1.5rem;
+    gap:1.5rem;
 }
 
-/* ICONS */
 
-.icon {
-    cursor: pointer;
-    height: 2rem;
-}
 
 /* BUTTONs */
 
-.btn-container {
+/* .btn-container {
     display: flex;
     justify-content: center;
     gap:1rem;
@@ -282,5 +298,7 @@ section {
     background-color: rgb(53,53,53);
     cursor: pointer;
     border: rgb(255,255,255) 0.1rem solid;
-}
+} */
+
+
 

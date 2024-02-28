@@ -52,13 +52,13 @@ html {
 /* ICONS */
 
 .icon {
-    height: 2rem;
+    height: 2.5rem;
     cursor: pointer;
 }
 
 .arrow {
     position:absolute;
-    left:47%;
+    left:48%;
     top: 90vh;
 }
 
@@ -75,7 +75,7 @@ a,
     position:fixed;
     top: 12px; /* Stick it to the top */
     width: 100%; /* Occupy full width */
-    right: 3%;
+    right: 4%;
     z-index: 100;
 }
 
@@ -87,14 +87,14 @@ nav,
 nav {
     justify-content: flex-end;;
     align-items: center;
-    height: 4vh;
+    height: 5vh;
 }
 
 .nav-links {
     font-weight: 700;
     gap: 2rem;
     list-style: none;
-    font-size: 1rem;
+    font-size: 1.3rem;
 }
 
 a {
@@ -213,7 +213,7 @@ a:hover {
 
 section {
     padding-top: 4vh;
-    height: 96vh;
+    height: 100vh;
     margin: 0 10rem;
     box-sizing: border-box;
     min-height: fit-content;
@@ -233,23 +233,25 @@ section {
 .section__pic {
     display: flex;
     flex-direction: column;
-    height: 250px;
-    width: 250px;
+
     margin: auto 3%;
 }
 
 .about-pic {
-    border-radius: 1.5rem;
+    border-radius: 50%;
+    height: 350px;
+    width: 350px;    
 }
 
 .title{
     position: absolute;
-    top: 16px;
-    left:0px;
+    top: 25px;
+    left:50px;
     cursor: default;
 }
 .section__text__p1 {
     font-size:12px;
+    color:rgb(150, 150, 150)
 }
 
 .section__text {
@@ -261,7 +263,7 @@ section {
 .section__text p {
     font-family: "Roboto Mono";
     font-weight: 350;
-    font-size:1.2em;
+    font-size:1.4em;
     margin-bottom:1rem;
 }
 
@@ -302,3 +304,43 @@ section {
 
 
 
+/* EXPERIENCE SECTION */
+
+#experience {
+    position: relative;
+}
+
+/* 
+.experience-container {
+    width: 80%;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+
+h1, h2 {
+    color: #333;
+}
+
+.experience {
+    margin-bottom: 20px;
+}
+
+.date {
+    font-weight: bold;
+    color: #555;
+}
+
+ul {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+ul li {
+    margin-bottom: 10px;
+}
+ */

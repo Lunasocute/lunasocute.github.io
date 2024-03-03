@@ -19,14 +19,20 @@
     <!-- <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet"> -->
 </head>
 
-<body>    
+<body>
+    <audio autoplay id="myaudio">
+      <!-- <source src=".\assets\music\Cyber Ants - 山水如画.mp3" type="audio/mpeg"> -->
+      <!-- <source src=".\assets\music\barnes blvd. - Intro (feat. Rook1e).mp3" type="audio/mpeg"> -->
+      <!-- <source src=".\assets\music\Nujabes,Fat Jon - Aruarian Dance.mp3" type="audio/mpeg"> -->
+    Your browser does not support the audio element.
+    </audio>
+
     <div class="header">
         <nav id="desktop-nav">
             <!-- <div class="logo">Luna Tian</div> -->
             <div>
                 <ul class="nav-links">
                     <li><a href="#about">About</a></li>
-                    <li><a href="#experience">Experience</a></li>
                     <li><a href="#projects">Projects</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
@@ -64,66 +70,117 @@
             <h1>About Me</h1>
         </div>
 
-        <section class="about-container">
+        <div class="section-container">
             <div class="section__pic">
-                <img src="./assets/profile-img.jpg" alt="profile picture" class="about-pic">
+                <img src="./assets/avatar.jpg" alt="profile picture" class="about-pic">
                 <div id="socials-container">
-                    <img src="./assets/linkedin.png" alt="linkedin" 
+                    <img src="./assets/linkedin.png" alt="linkedin" title="linkedin"
                     class="icon" onclick="location=href='https://www.linkedin.com/in/lunat618/'">
-                    <img src="./assets/github.png" alt="github-profile" 
+                    <img src="./assets/github.png" alt="github-profile" title="github"
                     class="icon" onclick="location=href='https://github.com/Lunasocute'"
                     >
-                    <img src="./assets/self.png" alt="cv" 
+                    <img src="./assets/self.png" alt="cv" title="resume"
                     class="icon" onclick="window.open('./assets/resume.pdf')">
                 </div>                
             </div>
             <div class="section__text">
-                <p>I am Luna Tian, a software engineer at Bay Area. </p>
+                <p>I am Luna Tian, a software engineer living in Bay Area. </p>
                 <p>I gained my Bachelor's Degree from UC Berkley in CS major.</p>
-                <p>I like baking and playing bass in spare time.</p>
+                <p>My hometown is <a href="https://en.wikipedia.org/wiki/Nanxun">NanXun</a>, a town lands south of the Yangtze River (江南).</p>
                 <p>I have an adorable silver-shaded cat, and I named him python.</p>
             </div> 
             
 
            
-        </section>
+          </div>
         <img src="./assets/arrow-down.png" alt="arrow down" class="icon arrow"
-        onclick="location.href='./#experience'"/>
+        onclick="location.href='./#projects'"/>
     </section>
 
-    <section id="experience">
+    <section id="projects">
         <div class="title">
-            <p class="section__text__p1">Explore My</p>
-            <h1>Experience</h1>
+            <p class="section__text__p1">Browse My Recent</p>
+            <h1>Projects</h1>            
         </div>
-        <!-- <div class="details-container">
-        </div> -->
-        <div class="experience-container">
-            <div class="experience">
-                <h2>humanID - Software Engineer Intern</h2>
-                <p><span class="date">01/2024 - Current</span></p>
-                <ul>
-                    <li>Built a Verification bot for Discord using Django and discord.py, enabling it to assign permissions and roles automatically.</li>
-                    <li>Implemented cross-platform communication functionality on the Developer Console website, facilitating seamless transmission of credential information across different platforms for clients.</li>
-                    <li>Refactored the code base, enhancing the server’s robustness and efficiency.</li>
-                    <li>Maintained code quality through debugging and peer reviewing, ensuring smooth service operation.</li>
-                </ul>
+        <div class="section-container" id="projects-container">
+          <div class="project-rows">
+            <div class="project-block" onclick="showProjectDetails('project1')">
+              <img src="assets\discordBot.png" alt="Project 1">
+              <div class="project-info">
+                <h3>Verification Discord Bot</h3>
+              </div>
             </div>
-            
-            <div class="experience">
-                <h2>Eth Tech - Software Engineer Intern</h2>
-                <p><span class="date">01/2023 - 12/2023</span></p>
-                <ul>
-                    <li>Developed an internal microblogging platform using SpringBoot, enabling user authentication, post interactions, and commenting functionalities.</li>
-                    <li>Structured and managed customer and business data by establishing a relational database schema in MySQL.</li>
-                    <li>Leveraged AWS technologies for deployment and scalability, deploying the application as an ECS instance and utilizing Amazon RDS for distributed cloud storage.</li>
-                    <li>Designed and built a responsive user interface using React, HTML, CSS, and Bootstrap, ensuring a seamless user experience.</li>
-                </ul>
+            <div class="project-block" onclick="showProjectDetails('project2')">
+              <img src="assets\developerConsole.png" alt="Project 2">
+              <div class="project-info">
+                <h3>Developer Console</h3>
+              </div>
             </div>
+            <div class="project-block" onclick="showProjectDetails('project2')">
+              <img src="assets\macro.png" alt="Project 2">
+              <div class="project-info">
+                <h3>Macro App</h3>
+              </div>
+            </div>
+            <div class="project-block" onclick="showProjectDetails('project2')">
+              <img src="assets\maze.png" alt="Project 2">
+              <div class="project-info">
+                <h3>Project 2</h3>
+              </div>
+            </div>
+
+            <!-- Add more project blocks as needed -->
+          </div>
+          <div class="project-rows">
+            <div class="project-block" onclick="showProjectDetails('project1')">
+              <img src="assets\2048.png" alt="Project 1">
+              <div class="project-info">
+                <h3>Verification Discord Bot</h3>
+              </div>
+            </div>
+            <div class="project-block" onclick="showProjectDetails('project2')">
+              <img src="assets\numc.png" alt="Project 2">
+              <div class="project-info">
+                <h3>Developer Console</h3>
+              </div>
+            </div>
+            <div class="project-block" onclick="showProjectDetails('project2')">
+              <img src="assets\gitlet.png" alt="Project 2">
+              <div class="project-info">
+                <h3>Project 2</h3>
+              </div>
+            </div>
+
+            <!-- Add more project blocks as needed -->
+          </div>
+          <!-- Modal for displaying project details -->
+          <div id="projectModal" class="modal">
+            <div class="modal-content">
+              <span class="close" onclick="closeProjectDetails()">&times;</span>
+              <div class="project-details" id="project1-details">
+                <img src="assets\project-1.png" alt="Project 1">
+                <div class="project-description">
+                  <h2>Project 1</h2>
+                  <p>Description of Project 1 Description of Project 1Description of Project 1Description of Project 1Description of Project 1Description of Project 1</p>
+                  <a href="#" class="project-link">Learn More</a>
+                </div>
+              </div>
+              <div class="project-details" id="project2-details">
+                <img src="assets\project-2.png" alt="Project 2">
+                <div class="project-description">
+                  <h2>Project 2</h2>
+                  <p>Description of Project 2</p>
+                  <a href="#" class="project-link">Link</a>
+                </div>
+              </div>
+            </div>
+          </div>          
         </div>
- 
+
+
+        
         <img src="./assets/arrow-down.png" alt="Arrow icon"
-          class="icon arrow" onclick="location.href='./#projects'"
+          class="icon arrow" onclick="location.href='./#contact'"
         />
       </section>
     
@@ -132,5 +189,9 @@
     <script src="particles.js"></script>
     <script src="app.js"></script>   
     <script src="script.js"></script>
+    <script>
+      var audio = document.getElementById("myaudio");
+      audio.volume = 0.13;
+    </script>
 </body>
 </html>

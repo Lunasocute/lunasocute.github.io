@@ -75,7 +75,7 @@ a,
     position:fixed;
     top: 12px; /* Stick it to the top */
     width: 100%; /* Occupy full width */
-    right: 4%;
+    right: 7%;
     z-index: 100;
 }
 
@@ -247,7 +247,7 @@ section {
 .title{
     position: absolute;
     top: 25px;
-    left:50px;
+    left:75px;
     cursor: default;
 }
 .section__text__p1 {
@@ -363,6 +363,7 @@ section {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.8);
+        /* Set initial opacity to 0 */
 }
 
 .modal-content {
@@ -420,7 +421,9 @@ section {
     color: #fff; /* Lighter text color on hover */
 }
   
-
+.project-info h3 {
+    color: palevioletred;
+}
 
   
   

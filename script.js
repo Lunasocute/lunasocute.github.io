@@ -41,3 +41,12 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 }
+
+// Get the audio element
+var audio = document.getElementById("myaudio");
+
+// Check if the audio is playing
+if (audio.paused) {
+    // If paused, play the audio
+    audio.play();
+}

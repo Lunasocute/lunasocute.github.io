@@ -21,7 +21,7 @@
 
 <body>
     <audio autoplay id="myaudio">
-      <!-- <source src=".\assets\music\Cyber Ants - 山水如画.mp3" type="audio/mpeg"> -->
+      <source src=".\assets\music\StrawberryPapa - 数星星.flac" type="audio/mpeg">
       <!-- <source src=".\assets\music\barnes blvd. - Intro (feat. Rook1e).mp3" type="audio/mpeg"> -->
       <!-- <source src=".\assets\music\Nujabes,Fat Jon - Aruarian Dance.mp3" type="audio/mpeg"> -->
     Your browser does not support the audio element.
@@ -105,49 +105,49 @@
         <div class="section-container" id="projects-container">
           <div class="project-rows">
             <div class="project-block" onclick="showProjectDetails('project1')">
-              <img src="assets\discordBot.png" alt="Project 1">
+              <img src="assets\project_cover\discordBot.png" alt="Project 1">
               <div class="project-info">
-                <h3>Verification Discord Bot</h3>
+                <h3>humanID Verification Bot</h3>
               </div>
             </div>
             <div class="project-block" onclick="showProjectDetails('project2')">
-              <img src="assets\developerConsole.png" alt="Project 2">
+              <img src="assets\project_cover\developerConsole.png" alt="Project 2">
               <div class="project-info">
                 <h3>Developer Console</h3>
               </div>
             </div>
-            <div class="project-block" onclick="showProjectDetails('project2')">
-              <img src="assets\macro.png" alt="Project 2">
+            <div class="project-block" onclick="showProjectDetails('project3')">
+              <img src="assets\project_cover\macro.png" alt="Project 3">
               <div class="project-info">
                 <h3>Macro App</h3>
               </div>
             </div>
-            <div class="project-block" onclick="showProjectDetails('project2')">
-              <img src="assets\maze.png" alt="Project 2">
+            <div class="project-block" onclick="showProjectDetails('project4')">
+              <img src="assets\project_cover\maze.png" alt="Project 4">
               <div class="project-info">
-                <h3>Project 2</h3>
+                <h3>Maze</h3>
               </div>
             </div>
 
             <!-- Add more project blocks as needed -->
           </div>
           <div class="project-rows">
-            <div class="project-block" onclick="showProjectDetails('project1')">
-              <img src="assets\2048.png" alt="Project 1">
+            <div class="project-block" onclick="showProjectDetails('project5')">
+              <img src="assets\project_cover\2048.png" alt="Project 5">
               <div class="project-info">
-                <h3>Verification Discord Bot</h3>
+                <h3>2048</h3>
               </div>
             </div>
-            <div class="project-block" onclick="showProjectDetails('project2')">
-              <img src="assets\numc.png" alt="Project 2">
+            <div class="project-block" onclick="showProjectDetails('project6')">
+              <img src="assets\project_cover\numc.png" alt="Project 6">
               <div class="project-info">
-                <h3>Developer Console</h3>
+                <h3>numC</h3>
               </div>
             </div>
-            <div class="project-block" onclick="showProjectDetails('project2')">
-              <img src="assets\gitlet.png" alt="Project 2">
+            <div class="project-block" onclick="showProjectDetails('project7')">
+              <img src="assets\project_cover\gitlet.png" alt="Project 7">
               <div class="project-info">
-                <h3>Project 2</h3>
+                <h3>GitLet</h3>
               </div>
             </div>
 
@@ -158,27 +158,42 @@
             <div class="modal-content">
               <span class="close" onclick="closeProjectDetails()">&times;</span>
               <div class="project-details" id="project1-details">
-                <img src="assets\project-1.png" alt="Project 1">
+                <img src="assets\project_detail\discord-bot-gif.gif" alt="discord bot">
                 <div class="project-description">
-                  <h2>Project 1</h2>
-                  <p>Description of Project 1 Description of Project 1Description of Project 1Description of Project 1Description of Project 1Description of Project 1</p>
-                  <a href="#" class="project-link">Learn More</a>
+                  <h2>humanId Verification Bot</h2>
+                  <p>A discord bot that offers a 100% anonymous option for Discord authentication helping server owner set the role and permission automatically.</p>
+                  <a href="https://docs.human-id.org/discord-bot-integration-guide" class="project-link" target="_blank">Learn More</a>
                 </div>
               </div>
               <div class="project-details" id="project2-details">
-                <img src="assets\project-2.png" alt="Project 2">
+                <img src="assets\project_cover\developerConsole.png" alt="Project 2">
                 <div class="project-description">
-                  <h2>Project 2</h2>
-                  <p>Description of Project 2</p>
+                  <h2>Developer Console</h2>
+                  <p> A platform that helps clients to organize their credential information.</p>
                   <a href="#" class="project-link">Link</a>
                 </div>
               </div>
+              <div class="project-details" id="project3-details">
+                <img src="assets\project_cover\macro.png" alt="Project 3">
+                <div class="project-description">
+                  <h2>Macro App</h2>
+                  <p> A frontend design project that focus on the user experience to use a macro application.</p>
+                  <a href="#" class="project-link">Learn More</a>
+                </div>
+              </div>
+              <div class="project-details" id="project4-details">
+                <img src="assets\project_cover\maze.png" alt="Project 4">
+                <div class="project-description">
+                  <h2>Maze</h2>
+                  <p> .</p>
+                  <a href="#" class="project-link">Learn More</a>
+                </div>
+              </div>
+
             </div>
           </div>          
         </div>
-
-
-        
+     
         <img src="./assets/arrow-down.png" alt="Arrow icon"
           class="icon arrow" onclick="location.href='./#contact'"
         />
@@ -191,7 +206,7 @@
     <script src="script.js"></script>
     <script>
       var audio = document.getElementById("myaudio");
-      audio.volume = 0.13;
+      audio.volume = 0.1;
     </script>
 </body>
 </html>

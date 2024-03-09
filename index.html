@@ -21,7 +21,7 @@
 
 <body>
     <audio autoplay id="myaudio">
-      <source src=".\assets\music\StrawberryPapa - 数星星.flac" type="audio/mpeg">
+      <!-- <source src=".\assets\music\StrawberryPapa - 数星星.flac" type="audio/mpeg"> -->
       <!-- <source src=".\assets\music\barnes blvd. - Intro (feat. Rook1e).mp3" type="audio/mpeg"> -->
       <!-- <source src=".\assets\music\Nujabes,Fat Jon - Aruarian Dance.mp3" type="audio/mpeg"> -->
     Your browser does not support the audio element.
@@ -54,8 +54,8 @@
                 </div>
             </div>
         </nav>            
-    </div>
-    <div id="particles-js">
+    </div>  
+    <div id="particles-js" >
         <div id="greeting">
             <h1>LUNA TIAN</h1>
             <h2>&nbspSoftware Engineer</h2>           
@@ -63,7 +63,7 @@
         <img src="./assets/arrow-down.png" alt="arrow down" class="icon arrow"
         onclick="location.href='./#about'"/>
     </div>
-    
+  
     <section id="about">
         <div class="title">
             <p class="section__text__p1">Get To Know More</p>
@@ -74,13 +74,15 @@
             <div class="section__pic">
                 <img src="./assets/avatar.jpg" alt="profile picture" class="about-pic">
                 <div id="socials-container">
-                    <img src="./assets/linkedin.png" alt="linkedin" title="linkedin"
-                    class="icon" onclick="location=href='https://www.linkedin.com/in/lunat618/'">
-                    <img src="./assets/github.png" alt="github-profile" title="github"
-                    class="icon" onclick="location=href='https://github.com/Lunasocute'"
-                    >
-                    <img src="./assets/self.png" alt="cv" title="resume"
-                    class="icon" onclick="window.open('./assets/resume.pdf')">
+                  <a href="https://www.linkedin.com/in/lunat618/" target="_blank">
+                    <img src="./assets/linkedin.png" alt="linkedin" title="linkedin" class="icon">
+                  </a>
+                  <a href="https://github.com/Lunasocute" target="_blank">
+                    <img src="./assets/github.png" alt="github-profile" title="github" class="icon">
+                  </a>
+                  <a href="./assets/resume.pdf" target="_blank">
+                    <img src="./assets/self.png" alt="cv" title="cv" class="icon">
+                  </a>
                 </div>                
             </div>
             <div class="section__text">
@@ -155,38 +157,62 @@
           </div>
           <!-- Modal for displaying project details -->
           <div id="projectModal" class="modal">
-            <div class="modal-content">
+            <div class="modal-content"  style="background-color: rgb(37, 37, 37);">
               <span class="close" onclick="closeProjectDetails()">&times;</span>
               <div class="project-details" id="project1-details">
                 <img src="assets\project_detail\discord-bot-gif.gif" alt="discord bot">
                 <div class="project-description">
-                  <h2>humanId Verification Bot</h2>
-                  <p>A discord bot that offers a 100% anonymous option for Discord authentication helping server owner set the role and permission automatically.</p>
-                  <a href="https://docs.human-id.org/discord-bot-integration-guide" class="project-link" target="_blank">Learn More</a>
+                  <h2>humanId Discord Bot</h2>
+                  <p>A verification bot offers a 100% anonymous option for Discord authentication to help server owner set the role and permission automatically.</p>
+                  <a href="https://docs.human-id.org/discord-bot-integration-guide" class="project-link" target="_blank">Link</a>
                 </div>
               </div>
               <div class="project-details" id="project2-details">
                 <img src="assets\project_cover\developerConsole.png" alt="Project 2">
                 <div class="project-description">
                   <h2>Developer Console</h2>
-                  <p> A platform that helps clients to organize their credential information.</p>
-                  <a href="#" class="project-link">Link</a>
+                  <p> humanID clients' platform to organize their credential information.</p>
+                  <a href="https://developers.human-id.org/home/" class="project-link" target="_blank">Link</a>
                 </div>
               </div>
               <div class="project-details" id="project3-details">
                 <img src="assets\project_cover\macro.png" alt="Project 3">
                 <div class="project-description">
                   <h2>Macro App</h2>
-                  <p> A frontend design project that focus on the user experience to use a macro application.</p>
-                  <a href="#" class="project-link">Learn More</a>
+                  <p> A frontend design project to improve user experience using a macro application.</p>
+                  <a href="https://github.com/tigerisbigcat/CS160_Final_Project" class="project-link" target="_blank">Link</a>
                 </div>
               </div>
               <div class="project-details" id="project4-details">
                 <img src="assets\project_cover\maze.png" alt="Project 4">
                 <div class="project-description">
                   <h2>Maze</h2>
-                  <p> .</p>
-                  <a href="#" class="project-link">Learn More</a>
+                  <p> 2d tile-based maze game that generates a random maze with interconnected rooms and hallways. </p>
+                  <a href="#" class="project-link">Link</a>
+                </div>
+              </div>
+              <div class="project-details" id="project5-details">
+                <img src="assets\project_cover\2048.png" alt="Project 4">
+                <div class="project-description">
+                  <h2>Game 2048</h2>
+                  <p> Game 2048 project developing in java and ucb GUI. </p>
+                  <a href="#" class="project-link">Link</a>
+                </div>
+              </div>
+              <div class="project-details" id="project6-details">
+                <img src="assets\project_cover\numc.png" alt="Project 6">
+                <div class="project-description">
+                  <h2>numC</h2>
+                  <p> C library that mirros NumPy's matrix functionalities, emphasizing optimized performance.</p>
+                  <a href="https://github.com/Lunasocute/numC" class="project-link" target="_blank">Link</a>
+                </div>
+              </div>
+              <div class="project-details" id="project7-details">
+                <img src="assets\project_cover\gitlet.png" alt="Project 7">
+                <div class="project-description">
+                  <h2>GitLet</h2>
+                  <p> A version control system in Java featuring commits, rollbacks, resets, merges, and more.</p>
+                  <a href="https://github.com/Lunasocute/gitlet" class="project-link" target="_blank">Link</a>
                 </div>
               </div>
 
@@ -197,7 +223,36 @@
         <img src="./assets/arrow-down.png" alt="Arrow icon"
           class="icon arrow" onclick="location.href='./#contact'"
         />
-      </section>
+    </section>
+
+    <section id="contact">
+      <div class="title">
+        <p class="section__text__p1">Get in Touch</p>
+        <h1>Contact Me</h1>        
+      </div>
+
+      <div class="contact-info-upper-container">
+        <div class="contact-info-container">
+          <img
+            src="./assets/email.png"
+            alt="Email icon"
+            class="icon contact-icon email-icon"
+          />
+          <p><a href="mailto:lunacute1777@gmail.com">lunacute1777@gmail.com</a></p>
+        </div>
+        <div class="contact-info-container">
+          <img
+            src="./assets/linkedin.png"
+            alt="LinkedIn icon"
+            class="icon contact-icon"
+          />
+          <p><a href="https://www.linkedin.com/in/lunat618/" target="_blank">LinkedIn</a></p>
+        </div>
+      </div>
+    </section>
+    <footer>
+      <p>Copyright &#169; 2024 Luna Tian. All Rights Reserved.</p>
+    </footer>
     
      
     <!-- particles js files -->

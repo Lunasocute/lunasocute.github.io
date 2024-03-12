@@ -5,4 +5,36 @@
     #hamburger-nav {
         display: flex;
     }
+    .section-container {
+        display:block;
+    }
+    .arrow {
+        display: none;
+    }
+
+    section,
+    .section-container {
+        height: fit-content;
+        margin: 80px auto;
+    }
+    
+    section {
+        margin: 0 15%;
+    }
+
+    .section__pic {
+        width:475px;
+        height: 475px;
+        margin: 0 auto;
+    }
+
+    
+
+
 }
+
+@media screen and (max-width: 600px) {
+
+}
+
+

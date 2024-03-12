@@ -10,7 +10,7 @@
 body {
     color: rgb(255, 252, 242);
     background-color: black;
-    font-family: "Roboto mono", sans-serif;
+    font-family: "Roboto", sans-serif;
     min-width: 600px; /* Set a minimum width for the body */
     overflow-x: auto; 
     overflow-y: auto; 
@@ -40,13 +40,13 @@ html {
 }
 
 #greeting h1 {
-    font-family: "Roboto Mono";
-    font-size: 80px
+    font-family: "Cormorant Garamond";
+    font-size: 95px
 }
 
 #greeting h2 {
     font-family: "Kode Mono";
-    font-size: 40px;
+    font-size: 30px;
     font-weight: normal;
 }
 
@@ -74,9 +74,9 @@ a,
 /* DESKTOP NAV */
 .header {
     position:fixed;
-    top: 12px; /* Stick it to the top */
+    top: 11px; /* Stick it to the top */
     width: 100%; /* Occupy full width */
-    right: 7%;
+    right: 6%;
     z-index: 100;
 }
 
@@ -93,7 +93,7 @@ nav {
 
 .nav-links {
     font-weight: 700;
-    gap: 3.2rem;
+    gap: 3rem;
     list-style: none;
     font-size: 1.3rem;
 }
@@ -225,7 +225,6 @@ section {
 }
 .section-container {
     display: flex;
-    
     gap: 4rem;
     margin: 0 10%;
     padding: 0;
@@ -237,6 +236,12 @@ section {
     flex-direction: column;
 
     margin: auto 3%;
+}
+
+.pic-container {
+    display:flex;
+    justify-content: center; /* Horizontally centers the image */
+    align-items: center; /* Vertically centers the image */
 }
 
 .about-pic {
@@ -263,9 +268,9 @@ section {
 }
 
 .section__text p {
-    font-family: "Roboto Mono";
+    font-family: "Cormorant Garamond", "Ma Shan Zheng";
     font-weight: 350;
-    font-size:1.4em;
+    font-size:1.8em;
     margin-bottom:1rem;
 }
 
@@ -275,37 +280,6 @@ section {
     margin-top:1.5rem;
     gap:1.5rem;
 }
-
-
-
-/* BUTTONs */
-
-/* .btn-container {
-    display: flex;
-    justify-content: center;
-    gap:1rem;
-    position:relative;
-    top:10%;
-}
-
-.btn {
-    font-weight: 600;
-    transition: all 300ms ease;
-    padding: 0.5rem;
-    width: 7rem;
-    border-radius: 0.5rem;
-    border: rgb(53,53,53) 0.1rem solid;
-    background: none;    
-}
-
-
-.btn:hover{
-    color: white;
-    background-color: rgb(53,53,53);
-    cursor: pointer;
-    border: rgb(255,255,255) 0.1rem solid;
-} */
-
 
 
 /* PROJECT SECTION */
@@ -442,8 +416,8 @@ section {
     display: flex;
     justify-content: center;
     border-radius: 2rem;
-    border: rgb(53, 53, 53) 0.1rem solid;
-    border-color: rgb(163, 163, 163);
+    border: rgb(255, 255, 255) 0.15rem solid;
+    border-color: rgb(128, 128, 128);
     background: (250, 250, 250);
     margin: 2rem auto;
     padding: 0.5rem;

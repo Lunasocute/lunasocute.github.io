@@ -15,12 +15,10 @@
     section,
     .section-container {
         height: fit-content;
-        margin: 80px auto;
+        margin: 80px 15px;
     }
     
-    section {
-        margin: 0 15%;
-    }
+
 
     .section__pic {
         width:475px;
@@ -28,12 +26,18 @@
         margin: 0 auto;
     }
 
-    
-
-
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1850px) {
+
+    #projects-container {
+        height: fit-content;
+        margin: 80px auto;
+    }
+
+    #projects .arrow {
+        display: none;
+    }
 
 }
 

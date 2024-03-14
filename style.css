@@ -374,8 +374,8 @@ section {
 }
 
 .project-details img {
-    max-width: 50%; /* Limit the maximum width of the image */
-    max-height: 50%; /* Limit the maximum height of the image */
+    max-width: 60%; /* Limit the maximum width of the image */
+    max-height: 60%; /* Limit the maximum height of the image */
     height: auto; /* Maintain aspect ratio */
     display: block; /* Remove any default spacing or margins */
     margin: 0 auto; /* Center the image horizontally */

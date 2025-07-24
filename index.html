@@ -23,7 +23,7 @@
 
 <body>
     <audio autoplay id="myaudio">
-      <source src=".\assets\music\StrawberryPapa - 数星星.flac" type="audio/mpeg">
+      <source src=".\assets\music\Slushii - Four Seasons.mp3" type="audio/mpeg">
       <!-- <source src=".\assets\music\barnes blvd. - Intro (feat. Rook1e).mp3" type="audio/mpeg"> -->
       <!-- <source src=".\assets\music\Nujabes,Fat Jon - Aruarian Dance.mp3" type="audio/mpeg"> -->
     Your browser does not support the audio element.
@@ -59,7 +59,7 @@
     <div id="particles-js" >
         <div id="greeting">
             <h1>Luna Tian</h1>
-            <h2>&nbspSoftware Engineer</h2>           
+            <!-- <h2>&nbspEngineer</h2>            -->
         </div>
         <img src="./assets/arrow-down.png" alt="arrow down" class="icon arrow"
         onclick="location.href='./#about'"/>
@@ -74,7 +74,7 @@
         <div class="section-container">
             <div class="section__pic">
               <div class="pic-container">
-                <img src="./assets/avatar.jpg" alt="profile picture" class="about-pic">
+                <img src="./assets/image.png" alt="profile picture" class="about-pic">
               </div>
               <div id="socials-container">
                 <a href="https://www.linkedin.com/in/lunat618/" target="_blank">
@@ -89,10 +89,9 @@
               </div>                
             </div>
             <div class="section__text">
-                <p>I am Luna Tian, a software engineer living in the Bay Area. </p>
-                <p>I gained my Bachelor's Degree from UC Berkeley in CS major.</p>
+                <p>Hi, I am Luna, an independent Developer living in Bay Area. </p>
                 <p>My hometown is <a href="https://en.wikipedia.org/wiki/Nanxun">NanXun</a>, a town lands south of the Yangtze River (江南).</p>
-                <p>I have an adorable silver-shaded cat, and I named him python.</p>
+                <p>I have an adorable silver-shaded cat, and I named him Python.</p>
             </div> 
             
 
@@ -109,6 +108,13 @@
         </div>
         <div id="projects-container">
           <!-- <div class="project-rows"> -->
+            <div class="project-block" onclick="showProjectDetails('project0')">
+              <div class="overlay"></div>
+              <img src="assets\project_cover\spotal.jpg" alt="Project 0">
+              <div class="project-info">
+                <h3>Spotal<br>[In Progress]</h3>
+              </div>
+            </div>
             <div class="project-block" onclick="showProjectDetails('project1')">
               <div class="overlay"></div>
               <img src="assets\project_cover\discordBot.png" alt="Project 1">
@@ -165,6 +171,14 @@
           <div id="projectModal" class="modal">
             <div class="modal-content"  style="background-color: rgb(37, 37, 37);">
               <span class="close" onclick="closeProjectDetails()">&times;</span>
+              <div class="project-details" id="project0-details">
+                <img src="assets\project_cover\spotal.jpg" alt="discord bot">
+                <div class="project-description">
+                  <h2>Spotal</h2>
+                  <p>Location-based photography sharing hub.</p>
+                  <a href="https://tinyurl.com/4nezkr38" class="project-link" target="_blank">Link</a>
+                </div>
+              </div>
               <div class="project-details" id="project1-details">
                 <img src="assets\project_detail\discord-bot.gif" alt="discord bot">
                 <div class="project-description">

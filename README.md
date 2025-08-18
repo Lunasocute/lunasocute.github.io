@@ -21,7 +21,7 @@ Spotal → A community app to share scenic spots via photos & location.
 
 MiniTwitter → Spring Boot + MySQL + Redis microblogging platform.
 
-humanID → Led development of privacy-first identity infrastructure (Tech Lead).
+humanID → Led development of privacy-first identity infrastructure (Tech Team Lead).
 
 ✨ Interests
 

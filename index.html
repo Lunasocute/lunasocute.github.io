@@ -22,12 +22,11 @@
 </head>
 
 <body>
-    <audio autoplay id="myaudio">
-      <source src=".\assets\music\Slushii - Four Seasons.mp3" type="audio/mpeg">
+    <!-- <audio controls>
+      <source src=".\assets\music\Slushii - Four Seasons.mp3" type="audio/mpeg"> -->
       <!-- <source src=".\assets\music\barnes blvd. - Intro (feat. Rook1e).mp3" type="audio/mpeg"> -->
       <!-- <source src=".\assets\music\Nujabes,Fat Jon - Aruarian Dance.mp3" type="audio/mpeg"> -->
-    Your browser does not support the audio element.
-    </audio>
+    <!-- </audio> -->
 
     <div class="header">
         <nav id="desktop-nav">
@@ -108,6 +107,15 @@
         </div>
         <div id="projects-container">
           <!-- <div class="project-rows"> -->
+
+            <div class="project-block" onclick="showProjectDetails('project8')">
+              <div class="overlay"></div>
+              <img src="assets\" alt="Project 8">
+              <div class="project-info">
+                <h3>Triangle Rasterization<br></h3>
+              </div>
+            </div>
+
             <div class="project-block" onclick="showProjectDetails('project0')">
               <div class="overlay"></div>
               <img src="assets\project_cover\spotal.jpg" alt="Project 0">
@@ -115,6 +123,7 @@
                 <h3>Spotal<br>[In Progress]</h3>
               </div>
             </div>
+
             <div class="project-block" onclick="showProjectDetails('project1')">
               <div class="overlay"></div>
               <img src="assets\project_cover\discordBot.png" alt="Project 1">
@@ -124,42 +133,42 @@
             </div>
             <div class="project-block" onclick="showProjectDetails('project2')">
               <div class="overlay"></div>
-              <img src="assets\project_cover\developerConsole.png" alt="Project 2">
+              <img src="assets\project_cover\image.jpeg" alt="Project 2">
               <div class="project-info">
                 <h3>Developer Console</h3>
               </div>
             </div>
             <div class="project-block" onclick="showProjectDetails('project3')">
               <div class="overlay"></div>
-              <img src="assets\project_cover\macro.png" alt="Project 3">
+              <img src="assets\project_cover\house.jpg" alt="Project 3">
               <div class="project-info">
-                <h3>Macro App</h3>
+                <h3>Housing Price Prediction</h3>
               </div>
             </div>
             <div class="project-block" onclick="showProjectDetails('project4')">
               <div class="overlay"></div>
-              <img src="assets\project_cover\maze.png" alt="Project 4">
+              <img src="assets\project_cover\byow.jpg" alt="Project 4">
               <div class="project-info">
-                <h3>Maze</h3>
+                <h3>BYOW</h3>
               </div>
             </div>
             <div class="project-block" onclick="showProjectDetails('project5')">
               <div class="overlay"></div>
-              <img src="assets\project_cover\2048.png" alt="Project 5">
+              <img src="assets\project_cover\spam.jpg" alt="Project 5">
               <div class="project-info">
-                <h3>2048</h3>
+                <h3>Spam Email Classification</h3>
               </div>
             </div>
             <div class="project-block" onclick="showProjectDetails('project6')">
               <div class="overlay"></div>
-              <img src="assets\project_cover\numc.png" alt="Project 6">
+              <img src="assets\project_cover\61c.jpg" alt="Project 6">
               <div class="project-info">
                 <h3>numC</h3>
               </div>
             </div>
             <div class="project-block" onclick="showProjectDetails('project7')">
               <div class="overlay"></div>
-              <img src="assets\project_cover\gitlet.png" alt="Project 7">
+              <img src="assets\project_cover\git.png" alt="Project 7">
               <div class="project-info">
                 <h3>GitLet</h3>
               </div>
@@ -171,6 +180,16 @@
           <div id="projectModal" class="modal">
             <div class="modal-content"  style="background-color: rgb(37, 37, 37);">
               <span class="close" onclick="closeProjectDetails()">&times;</span>
+
+              <div class="project-details" id="project8-details">
+                <img src="assets\" alt="">
+                <div class="project-description">
+                  <h2>Triangle Rasterization</h2>
+                  <p>A custom OpenGL rasterizer in C++ with point-in-triangle tests, bounding-box optimization, anti-aliasing (supersampling), and mipmap-based texture mapping for efficient, high-quality rendering.</p>
+                  <a href=".\cs184\hw1.html" class="project-link" target="_blank">Link</a>
+                </div>
+              </div>
+
               <div class="project-details" id="project0-details">
                 <img src="assets\project_cover\spotal.jpg" alt="discord bot">
                 <div class="project-description">
@@ -179,6 +198,7 @@
                   <a href="https://tinyurl.com/4nezkr38" class="project-link" target="_blank">Link</a>
                 </div>
               </div>
+
               <div class="project-details" id="project1-details">
                 <img src="assets\project_detail\discord-bot.gif" alt="discord bot">
                 <div class="project-description">
@@ -196,11 +216,11 @@
                 </div>
               </div>
               <div class="project-details" id="project3-details">
-                <img src="assets\project_cover\macro.png" alt="Project 3">
+                <img src="assets\project_cover\house.jpg" alt="Project 3">
                 <div class="project-description">
-                  <h2>Macro App</h2>
-                  <p> A frontend design project to improve user experience using a macro application.</p>
-                  <a href="https://github.com/tigerisbigcat/CS160_Final_Project" class="project-link" target="_blank">Link</a>
+                  <h2>Housing Price Prediction</h2>
+                  <p> A data science project using 200K+ Cook County housing records to build preprocessing pipelines and regression models, exploring feature engineering, predictive accuracy, and fairness issues such as multicollinearity and regressive taxation bias.</p>
+                  <a href="./assets/project_detail/project1.pdf" class="project-link" target="_blank">Link</a>
                 </div>
               </div>
               <div class="project-details" id="project4-details">
@@ -212,11 +232,11 @@
                 </div>
               </div>
               <div class="project-details" id="project5-details">
-                <img src="assets\project_detail\2048.gif" alt="Project 4">
+                <img src="assets\project_cover\spam.jpg" alt="Project 4">
                 <div class="project-description">
-                  <h2>Game 2048</h2>
-                  <p> Game 2048 project developing in java and ucb GUI. </p>
-                  <a href="#" class="project-link">Link</a>
+                  <h2>Spam Email Classification</h2>
+                  <p> A machine learning project using the SpamAssassin dataset (8K+ emails) to build text preprocessing pipelines and logistic regression models, achieving ~89.5% accuracy while exploring precision/recall trade-offs, ROC analysis, and feature enhancements for improved spam detection. </p>
+                  <a href="./assets/project_detail/project2.pdf" class="project-link">Link</a>
                 </div>
               </div>
               <div class="project-details" id="project6-details">
@@ -228,7 +248,7 @@
                 </div>
               </div>
               <div class="project-details" id="project7-details">
-                <img src="assets\project_cover\gitlet.png" alt="Project 7">
+                <img src="assets\project_detail\gitlet.png" alt="Project 7">
                 <div class="project-description">
                   <h2>GitLet</h2>
                   <p> A version control system in Java featuring commits, rollbacks, resets, merges, and more.</p>

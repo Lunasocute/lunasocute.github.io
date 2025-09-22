@@ -26,87 +26,176 @@
 		</style>
 	</head>
 	<body>
-		<div class="container">
-		<h1>CS184/284A Spring 2025 Homework 1 Write-Up</h1>
-		<div style="text-align: center;">Names: </div>
+        <div class="container">
+            <h1>CS184/284A Homework 1 Write-Up</h1>
+            <div style="text-align: center;">Name: Luna Tian </div>
 
-		<br>
+            <br>
 
-		Link to webpage: (TODO) <a href="https://cs184.eecs.berkeley.edu/sp25">cs184.eecs.berkeley.edu/sp25</a>
-		
-		<br>
+            Link to webpage: <a href="https://cs184.eecs.berkeley.edu/sp25">cs184.eecs.berkeley.edu/sp25</a>
 
-		Link to GitHub repository: (TODO) <a href="https://cs184.eecs.berkeley.edu/sp25">cs184.eecs.berkeley.edu/sp25</a>
+            <br>
 
-		<figure>
-			<img src="images/image1.png" alt="Lion" style="width:50%"/>
-			<figcaption>You can add images with captions!</figcaption>
-		</figure>
+            Link to GitHub repository: (TODO) <a href="https://github.com/cal-cs184-student/sp25-hw1-lunacute">https://github.com/cal-cs184-student/sp25-hw1-lunacute</a>
 
-		<!--
-		We've already added one heading per task, to make your write-up as navigable when grading. Please fit your write-up within these sections!
-		-->
+            <figure>
+                <img src="images/image1.png" alt="Lion" style="width:30%" />
+            </figure>
 
-		<h2>Overview</h2>
-		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
+            <!--
+    We've already added one heading per task, to make your write-up as navigable when grading. Please fit your write-up within these sections!
+    -->
 
-		<h2>Task 1: Drawing Single-Color Triangles</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            <h2>Overview</h2>
+            <p>
+                In this assignment, I implemented a basic 2D rasterizer that can draw colored and textured triangles with various sampling techniques. The rasterizer supports supersampling for antialiasing, barycentric coordinates for color interpolation, and different texture sampling methods including bilinear sampling and mipmapping. Additionally, I implemented 2D transformations to manipulate shapes within the rasterizer.
+            </p>
+            
 
-		<p>Here is an example 2x2 gridlike structure using an HTML table. Each <b>tr</b> is a row and each <b>td</b> is a column in that row. You might find this useful for framing and showing your result images in an organized fashion.</p>
-		<div style="display: flex; flex-direction: column; align-items: center;">
-			<table style="width: 100%; text-align: center; border-collapse: collapse;">
-			  <tr>
-				<td style="text-align: center;">
-				  <img src="images/image1.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-				<td style="text-align: center;">
-				  <img src="images/image2.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-			  </tr>
-			  <tr>
-				<td style="text-align: center;">
-				  <img src="images/image3.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-				<td style="text-align: center;">
-				  <img src="images/image4.png" width="400px"/>
-				  <figcaption>Caption goes here.</figcaption>
-				</td>
-			  </tr>
-			</table>
-		</div>
-		
-		<h2>Task 2: Antialiasing by Supersampling</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            <h2>Task 1: Drawing Single-Color Triangles</h2>
+            <p>
+                In this task, I implemented a basic triangle rasterization algorithm. The procedure begins by determining the bounding box of the triangle, computed from the minimum and maximum coordinates along the x and y axes of its three vertices. Each pixel within this bounding box is then tested for inclusion in the triangle.
+                <br>The inclusion test is performed by passing the pixel coordinates into the line equations \( L(x,y) = -(x-x_0)(y-y_0) + (y-y_0 x_1- x_0) \). One thing to keep in mind is ensuring triangle's vetices order are in counterclockwise, so that our edge function is valid. If all equation functions return positive value, it is classified as interior to the triangle, and its color is set to the triangle’s assigned color.
+                <br /> To handle boundary cases, I adopted the top-left rule: pixels lying exactly on an edge are considered inside if the edge is either a top or a left edge, and outside otherwise. This convention guarantees that every pixel is covered by at most one triangle, thereby avoiding double counting along shared edges.
+                <br>I also explored the possibility of using the incremental triangle rasterization technique introduced in lecture as a performance optimization. However, I found the implementation complexity relatively high compared to its benefits in this context. Since the baseline algorithm already provides sufficiently fast performance for the assignment requirements, I ultimately chose to retain the basic rasterization approach.
+            </p>
 
-		<h2>Task 3: Transforms</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <table style="width: 100%; text-align: center; border-collapse: collapse;">
+                    <tr>
+                        <td style="text-align: center;">
+                            <img src="images/dragon.png" width="500px" />
+                            <figcaption>1.1 image rasterized by rasterizer.</figcaption>
+                        </td>
+                    </tr>
+                </table>
+            </div>
 
-		<h2>Task 4: Barycentric coordinates</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            <h2>Task 2: Antialiasing by Supersampling</h2>
+            <p>
+                In order to do the supersampling, I modified the rasterization process, including rasterizer function and resolve framebuffer function. In the rasterizer function, I first calculate the unit of each subpixel based on the number of samples per pixel.
+                <br>Then, I iterate over all subpixels within the bounding box. For each subpixel, I determine if they are inside the triangle using the same line equation method as before. If it does, I fill in the color to its corresponding position in the framebuffer.
+                <br>Finally, in the resolve framebuffer function, I average the colors of all subpixels within each pixel to get the final color. This averaging process effectively smooths out the jagged edges that can occur in rasterized images, resulting in a more visually appealing output.
+                <br>It is worth noting that while supersampling significantly improves image quality, it also increases computational load due to the higher number of samples processed.
+            </p>
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <table style="width: 100%; text-align: center; border-collapse: collapse;">
+                    <tr>
+                        <td style="text-align: center;">
+                            <img src="images/supersample1.png" width="400px" />
+                            <figcaption>2.1 image with sample rate 1</figcaption>
+                        </td>
+                        <td style="text-align: center;">
+                            <img src="images/supersample4.png" width="400px" />
+                            <figcaption>2.2 image with sample rate 4</figcaption>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;">
+                            <img src="images/supersample16.png" width="400px" />
+                            <figcaption>2.3 image with sample rate 16</figcaption>
+                        </td>
+                    </tr>
+                </table>
+            </div>
 
-		<h2>Task 5: "Pixel sampling" for texture mapping</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            <h2>Task 3: Transforms</h2>
 
-		<h2>Task 6: "Level Sampling" with mipmaps for texture mapping</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <p>
+                    Utilizing my implementation of 2D transformations, I was able to hierarchically tranform the robot parts by applying a series of transfocaling.
+                    <br /> I want to make the robot cheered up by raising its hands. I  translated the lower arms by making the elbow the origin, then rotated the lower arms by 90 degrees, and finally tranlate back.
+                    <br /> One thing that I debugged for a while is that I initially forgot to change the rotation angle from degrees to radians, which caused the robot arms to not be in the right position.
+                </p>
+                <table style="width: 100%; text-align: center; border-collapse: collapse;">
+                    <tr>
+                        <td style="text-align: center;">
+                            <img src="images/transform.png" width="500px" />
+                            <figcaption>3.1 transformed robot</figcaption>
+                        </td>
+                    </tr>
+                </table>
+            </div>
 
-		<h2>(Optional) Task 7: Extra Credit - Draw Something Creative!</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            <h2>Task 4: Barycentric coordinates</h2>
+            <p>
+                Utilizing
+            </p>
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <p>
+                    In this task, I implemented barycentric coordinates to interpolate value at vertices (see image 4.1).
+                    Based on the barycentric coordinates \( V = \alpha V_A + \beta V_B + \gamma V_C\), I calculated the weights \( \alpha, \beta, \gamma \) for each pixel inside the triangle using the area method such as \( \alpha = L_{BC}(x,y)) / L_{BC}(x_A,y_A) \), similarly for \( \beta \) and \( \gamma \). The line equation is the same as in Task 1. Once I got all the weight coefficent, I multiplied them with the corresponding color value at each vertex and summed them up to get the interpolated color value at that pixel.
+                </p>
+                <table style="width: 100%; text-align: center; border-collapse: collapse;">
+                    <tr>
+                        <td style="text-align: center;">
+                            <img src="images/triangle.png" width="500px" />
+                            <figcaption> 4.1 demostrated triangle </figcaption>
+                        </td>
+                        <td style="text-align: center;">
+                            <img src="images/circle.png" width="500px" />
+                            <figcaption> 4.2 screenshot for svg/basic/test7.svg </figcaption>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <h2>Task 5: "Pixel sampling" for texture mapping</h2>
 
-		<h2>Additional Notes (please remove)</h2>
-		<ul>
-			<li>You can also add code if you'd like as so: <code>code code code</code></li>
-			<li>If you'd like to add math equations, 
-				<ul>
-					<li>You can write inline equations like so: \( a^2 + b^2 = c^2 \)</li>
-					<li>You can write display equations like so: \[ a^2 + b^2 = c^2 \]</li>
-				</ul>
-			</li>
-		</ul>
-		</div>
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <p>
+                    Pixel sampling is the process of deciding what color each pixel should be based on image or texture we’re drawing, especially when we do the zoom-in or zoom-out operation.
+                    <br /> So, I firstly implement the <code> rasterize_textured_triangle function</code>. The first half is similar to the <code> rasterize_triangle </code> function, I decide the bounding box and iterate the pixel inside of it, for each pixel, we calculate its corresponding coordinate in texture mapping using barycentric coordinates equation again. For their \( u, v\), We calculate each of them based on the triangles vertices \( x, y\) coordinates.
+                    <br /> Having each pixel's coordinate in texture map, we could calculate their color using two sample functions. As for <code>sample_nearest</code>, we simply get the nearest pixel in texture map.
+                    As for <code>sample_bilinear</code> functions, we firsly get the nearest 4 points surrounding the current point, then do linear interpolations \( lerp(x,v_0,v_1)=v_0+x(v_1-v_0) \) for three times. Specially, four nearest points is forming a rectangle, applying linear interpolation to two horizontal lines, then applying linear interpolation vertically and get the final color.
+                    <br /> Finally, we could see the bilinear sample has a smoother color transition (5.1 vs 5.2), the difference will be obvious if the frequency of pattern changing is high because the bilinear sampling the color based on more neighbors.
+                </p>
+                <table style="width: 100%; text-align: center; border-collapse: collapse;">
+                    <tr>
+                        <td style="text-align: center;">
+                            <img src="images/nearest.png" width="500px" />
+                            <figcaption> 5.1 nearest filtering </figcaption>
+                        </td>
+                        <td style="text-align: center;">
+                            <img src="images/bilinear.png" width="500px" />
+                            <figcaption> 5.2 bilinear filtering </figcaption>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <h2>Task 6: "Level Sampling" with mipmaps for texture mapping</h2>
+            <p>
+
+            </p>
+            <table style="width: 100%; text-align: center; border-collapse: collapse;">
+                <p>
+                    Level Sampling is the process of choosing the right mipmap level to sample from based on the mapping between screen space and texture space. The goal is to minimize aliasing artifacts that can occur when a texture is minified or magnified.
+                    <br /> I first compute the mipmap level through equation \( D = \log_2(\max(\sqrt{(\frac{\partial u}{\partial x})^2 + (\frac{\partial v}{\partial x})^2}, \sqrt{(\frac{\partial u}{\partial y})^2 + (\frac{\partial v}{\partial y})^2})) \). The partial derivatives \( \frac{\partial u}{\partial x}, \frac{\partial u}{\partial y}, \frac{\partial v}{\partial x}, \frac{\partial v}{\partial y} \) are approximated using finite differences, specifically by evaluating the change in texture coordinates over a one-pixel step in screen space. Then based on the method of level sampling, I either round it to the nearest integer (L_NEAREST) or interpolate between the two nearest levels (L_LINEAR).
+                    <br /> Adjusting these difference sampling algorithm, I could see the P_NEAREST and L_ZERO produce the most aliased image (6.1), while P_LINEAR and L_LINEAR produce the smoothest image (6.4). The other two combinations are in between (6.2 and 6.3). But P_LINEAR and L_LINEAR method is also the most computationally expensive because it requires more linear interpolation steps and function to get the right mipmap level.
+                </p>
+
+                <tr>
+                    <td style="text-align: center;">
+                        <img src="images/LZ_PN.png" width="500px" />
+                        <figcaption> 6.1 L_ZERO and P_NEAREST </figcaption>
+                    </td>
+                    <td style="text-align: center;">
+                        <img src="images/LZ_PL.png" width="500px" />
+                        <figcaption> 6.2 L_ZERO and P_LINEAR </figcaption>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center;">
+                        <img src="images/LN_PN.png" width="500px" />
+                        <figcaption> 6.3 L_NEAREST and P_NEAREST </figcaption>
+                    </td>
+                    <td style="text-align: center;">
+                        <img src="images/LN_PL.png" width="500px" />
+                        <figcaption> 6.4 L_NEAREST and P_LINEAR </figcaption>
+                    </td>
+                </tr>
+            </table>
+            <h2>(Optional) Task 7: Extra Credit - Draw Something Creative!</h2>
+        </div>
 	</body>
 </html>

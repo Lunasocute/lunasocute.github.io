@@ -1,0 +1,113 @@
+<html>
+	<head>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+		<style>
+			h1 {
+				text-align: center;
+			}
+
+			.container {
+				margin: 0 auto;
+				padding: 60px 20%;
+			}
+
+			figure {
+				text-align: center;
+			}
+
+			img {
+				display: inline-block;
+			}
+
+			body {
+				font-family: 'Inter', sans-serif;
+			}
+		</style>
+	</head>
+	<body>
+        <div class="container">
+            <h1>RISC-V CPU Design</h1>
+            <div style="text-align: center;">Name: Luna Tian </div>
+
+            <br>
+
+            Link to webpage: <a href="https://cs61c.org/">https://cs61c.org/</a>
+
+            <figure>
+                <img src="images/cpu.webp" alt="Lion" style="width:30%" />
+            </figure>
+
+            <!--
+    We've already added one heading per task, to make your write-up as navigable when grading. Please fit your write-up within these sections!
+    -->
+
+            <h2>Overview</h2>
+            <p>
+Implemented a fully functional 32-bit RISC-V CPU in Logisim Evolution, including core modules such as the ALU (arithmetic, logic, shift, multiply), Register File with 32 registers (x0 hardwired to zero), Immediate Generator, Control Logic, and aligned Data Memory with write masks. The design was extended into a two-stage pipelined processor (IF, ID/EX/MEM/WB) with branch flush handling, supporting arithmetic, load/store, branch, and jump instructions.
+<br>
+During the process, I learned to carefully examine Logisim components and design datapath hierarchies. For example, splitters and sign-extenders were essential in implementing shifters and multiplication, while DeMux and tunnels simplified the Register File wiring. Building the single-cycle datapath helped me understand instruction fields and immediate generation, and later extending it to a pipeline taught me how to manage flushes and control hazards.
+<br>
+The most challenging part was memory alignment and write masks: handling unaligned addresses required bit manipulation and edge-case debugging. Finally, extensive testing with provided harnesses, custom testbenches, and community feedback helped uncover subtle bugs that normal cases did not reveal. Overall, this project gave me hands-on experience in computer architecture, datapath construction, and debugging a working CPU from the ground up.
+            </p>
+            
+
+            <h2>Details</h2>
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <table style="width: 100%; text-align: center; border-collapse: collapse;">
+                    <tr>
+                        <td style="text-align: center; padding: 60px 0;">
+                            <img src="images/cpu.png" width="700px" style="margin-bottom: 10px;" />
+                            <figcaption><b>CPU (Top-Level)</b> – Connects all modules into the full datapath and pipeline.</figcaption>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center; padding: 60px 0;">
+                            <img src="images/alu.png" width="700px" style="margin-bottom: 10px;" />
+                            <figcaption><b>ALU</b> – Performs arithmetic, logic, shift, and multiply operations.</figcaption>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center; padding: 60px 0;">
+                            <img src="images/branch_comp.png" width="700px" style="margin-bottom: 10px;" />
+                            <figcaption><b>Branch Comparator</b> – Evaluates branch conditions (e.g., beq, blt, bge).</figcaption>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center; padding: 60px 0;">
+                            <img src="images/control_logic.png" width="700px" style="margin-bottom: 10px;" />
+                            <figcaption><b>Control Logic</b> – Decodes opcode and funct3/funct7 to generate control signals.</figcaption>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center; padding: 60px 0;">
+                            <img src="images/csr.png" width="700px" style="margin-bottom: 10px;" />
+                            <figcaption><b>CSR</b> – Control and Status Registers, including <code>tohost</code> for test output.</figcaption>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center; padding: 60px 0;">
+                            <img src="images/imm_gen.png" width="700px" style="margin-bottom: 10px;" />
+                            <figcaption><b>Immediate Generator</b> – Reconstructs immediates for I/S/B/U/J type instructions with sign-extension.</figcaption>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center; padding: 60px 0;">
+                            <img src="images/mem.png" width="700px" style="margin-bottom: 10px;" />
+                            <figcaption><b>Memory Unit</b> – Handles loads/stores with byte/halfword/word alignment and write masks.</figcaption>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center; padding: 60px 0;">
+                            <img src="images/regfile.png" width="700px" style="margin-bottom: 10px;" />
+                            <figcaption><b>Register File</b> – Implements 32 registers (x0 hardwired to zero) with read/write ports.</figcaption>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+
+   
+        </div>
+	</body>
+</html>

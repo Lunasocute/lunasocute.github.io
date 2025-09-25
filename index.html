@@ -73,7 +73,7 @@
         <div class="section-container">
             <div class="section__pic">
               <div class="pic-container">
-                <img src="./assets/image.png" alt="profile picture" class="about-pic">
+                <img src="./assets/profile.jpg" alt="profile picture" class="about-pic">
               </div>
               <div id="socials-container">
                 <a href="https://www.linkedin.com/in/lunat618/" target="_blank">
@@ -107,6 +107,7 @@
         </div>
         <div id="projects-container">
           <!-- <div class="project-rows"> -->
+
 
             <div class="project-block" onclick="showProjectDetails('project8')">
               <div class="overlay"></div>
@@ -145,6 +146,15 @@
                 <h3>Housing Price Prediction</h3>
               </div>
             </div>
+
+            <div class="project-block" onclick="showProjectDetails('project9')">
+              <div class="overlay"></div>
+              <img src="assets\project_cover\cpu.png" alt="Project 9">
+              <div class="project-info">
+                <h3>RISC-V CPU Design<br></h3>
+              </div>
+            </div>    
+
             <div class="project-block" onclick="showProjectDetails('project4')">
               <div class="overlay"></div>
               <img src="assets\project_cover\byow.jpg" alt="Project 4">
@@ -180,6 +190,15 @@
           <div id="projectModal" class="modal">
             <div class="modal-content"  style="background-color: rgb(37, 37, 37);">
               <span class="close" onclick="closeProjectDetails()">&times;</span>
+
+              <div class="project-details" id="project9-details">
+                <img src="assets\project_cover\cpu.png" alt="">
+                <div class="project-description">
+                  <h2>RISC-V CPU Design</h2>
+                  <p>Implemented a fully functional 32-bit RISC-V CPU in Logisim Evolution, including core modules such as the ALU (arithmetic, logic, shift, multiply), Register File with 32 registers (x0 hardwired to zero), Immediate Generator, Control Logic, and aligned Data Memory with write masks. The design was extended into a two-stage pipelined processor (IF, ID/EX/MEM/WB) with branch flush handling, supporting arithmetic, load/store, branch, and jump instructions.</p>
+                  <a href=".\cs61c\cpu.html" class="project-link" target="_blank">Link</a>
+                </div>
+              </div>
 
               <div class="project-details" id="project8-details">
                 <img src="assets\project_detail\bilinear.png" alt="">

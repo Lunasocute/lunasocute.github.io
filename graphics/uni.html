@@ -1,0 +1,240 @@
+<html>
+  <head>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+      h1 { text-align: center; }
+      .container { margin: 0 auto; padding: 60px 20%; }
+      figure { text-align: center; }
+      img { display: inline-block; }
+      body { font-family: 'Inter', sans-serif; }
+      figcaption { margin-top: 10px; font-size: 14px; color: #555; }
+      table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+      th, td { border: 1px solid #ddd; padding: 12px; text-align: center; }
+      th { background-color: #f2f2f2; }
+      code { background: #f7f7f7; padding: 2px 6px; border-radius: 4px; }
+      .subtle { color:#666; font-size:14px; }
+      ul.tight li { margin: 6px 0; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Music-Driven Spiky Chrome Sphere (Unity)</h1>
+      <div style="text-align: center;"> Luna Tian</div>
+
+      <br>
+
+      <h2>Overview</h2>
+      <p>
+        This project combines Unity <b>Shader Graph</b> and an audio-reactive control pipeline to build a futuristic
+        “spiky chrome sphere.” The sphere responds to music in two distinct ways:
+      </p>
+      <ul>
+        <li><b>High frequencies</b> — control spike amplitude (longer spikes with louder highs).</li>
+        <li><b>Low frequencies</b> — drive a heartbeat-like pulse and rotation, adding life-like rhythm.</li>
+      </ul>
+      <p>
+        The result is a reflective sculpture that feels alive, pulsing and twisting to the soundtrack.
+      </p>
+
+        <div style="text-align: center; margin: 40px 0;">
+        <video width="80%" controls>
+            <source src="assets/scorpion.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <figcaption><b>Demo Video 1</b> — Music: Scorpion - City pop Type Beat </figcaption>
+        </div>
+
+        <div style="text-align: center; margin: 40px 0;">
+        <video width="80%" controls>
+            <source src="assets/synth.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <figcaption><b>Demo Video 2</b> — Music: Trap Synthwave Beat</figcaption>
+        </div>    
+
+        <h2>Details</h2>
+        <div style="display: flex; flex-direction: column; align-items: center;">
+        
+        <figure style="margin: 60px 0; text-align: center;">
+            <img src="assets/shader.png" width="900px" />
+            <figcaption><b>Shader Graph</b> — Triplanar noise displacement along normals creates procedural spikes, modulated by <code>_SpikeAmp</code> and <code>_Pulse</code>.</figcaption>
+        </figure>
+
+        <figure style="margin: 60px 0; text-align: center;">
+            <img src="assets/working_space.png" width="900px" />
+            <figcaption><b>Working Space</b></figcaption>
+        </figure>
+
+        </div>
+
+
+      <h3>Final Parameter Settings</h3>
+      <table>
+        <tr><th>Parameter</th><th>Value</th><th>Description</th></tr>
+        <tr><td>SpikeAmp</td><td>Dynamic</td><td>Base spike amplitude</td></tr>
+        <tr><td>NoiseScale</td><td>5.58</td><td>Controls density of spikes</td></tr>
+        <tr><td>FlowSpeed</td><td>0.105</td><td>Speed of procedural noise flow</td></tr>
+        <tr><td>Sharpness</td><td>1.9</td><td>Controls spike sharpness</td></tr>
+        <tr><td>Threshold</td><td>0.156</td><td>Activation threshold for spike mask</td></tr>
+        <tr><td>Pulse</td><td>Dynamic</td><td>Heartbeat intensity driven by low-frequency band</td></tr>
+      </table>
+      <br><br>
+      <h3>Shader Math (Vertex Displacement)</h3>
+      <p class="subtle">
+        Idea: approximate 3D noise via triplanar projections, then displace vertices along their normals so spikes grow outward from the sphere.
+        When <code>_SpikeAmp = 0</code>, the surface is perfectly smooth.
+      </p>
+
+      <!-- Inputs -->
+      <p><b>Inputs</b></p>
+      <ul class="tight">
+        <li>Object-space position: \( \mathbf{p} = (x,y,z) \)</li>
+        <li>Object-space normal: \( \mathbf{n} \) (normalized)</li>
+        <li>Time-driven flow: \( t = \text{Time} \cdot \_FlowSpeed \)</li>
+      </ul>
+
+      <!-- Triplanar UVs -->
+      <p><b>Triplanar UVs & Noises</b></p>
+      <p>
+        \[
+          \mathbf{uv}_{xy} = (x, y)\cdot \_NoiseScale + (t, t), \quad
+          \mathbf{uv}_{yz} = (y, z)\cdot \_NoiseScale + (1.37t, 1.37t), \quad
+          \mathbf{uv}_{zx} = (z, x)\cdot \_NoiseScale + (2.11t, 2.11t)
+        \]
+        Let \( n_{xy}=\text{Noise}(\mathbf{uv}_{xy}),\; n_{yz}=\text{Noise}(\mathbf{uv}_{yz}),\; n_{zx}=\text{Noise}(\mathbf{uv}_{zx}) \in [0,1]\).
+      </p>
+
+      <!-- Weights -->
+      <p><b>Triplanar Weights</b></p>
+      <p>
+        \[
+          \mathbf{a} = |\mathbf{n}| = (|n_x|, |n_y|, |n_z|),\quad
+          s = a_x + a_y + a_z + \varepsilon,\;\; \varepsilon=10^{-5}
+        \]
+        \[
+          \mathbf{w} = \frac{\mathbf{a}}{s} = (w_x, w_y, w_z),\;\; w_x+w_y+w_z \approx 1
+        \]
+      </p>
+
+      <!-- Combined noise -->
+      <p><b>Approximate 3D Noise</b></p>
+      <p>
+        \[
+          \text{noise}_{01} = w_x \cdot n_{xy} + w_y \cdot n_{yz} + w_z \cdot n_{zx} \in [0,1]
+        \]
+      </p>
+
+      <!-- Mask & amplitude -->
+      <p><b>Spike Mask & Amplitude</b></p>
+      <p>
+        \[
+          \text{noise}_{\text{sharp}} = \left(\text{clamp}(\text{noise}_{01},\,0,1)\right)^{\_Sharpness}
+        \]
+        \[
+          \text{mask} = \text{smoothstep}(\_Threshold,\, 1,\, \text{noise}_{\text{sharp}})
+        \]
+        \[
+          \text{amp} = \text{mask} \cdot \_SpikeAmp \cdot \left(1 + 0.2 \cdot \_Pulse\right)
+        \]
+      </p>
+
+      <!-- Displacement -->
+      <p><b>Normal Displacement</b></p>
+      <p>
+        \[
+          \mathbf{p}_{\text{out}} = \mathbf{p} + \mathbf{n} \cdot \text{amp}
+        \]
+        Feed \( \mathbf{p}_{\text{out}} \) into the Shader Graph’s <i>Vertex Position</i>.
+      </p>
+      <br><br>
+      <h3>Music Scripting Methodology</h3>
+      <p class="subtle">Signal flow for controlling <code>_SpikeAmp</code> (high/overall energy) and <code>_Pulse</code> (low-frequency heartbeat):</p>
+
+      <p><b>1. Spectrum Acquisition</b></p>
+      <ul class="tight">
+        <li>Compute FFT spectrum each frame: \( \text{spec}[i] = \text{FFT}(\text{audio}) \)</li>
+        <li>Use a high-quality window (e.g., Blackman-Harris) to reduce spectral leakage.</li>
+      </ul>
+
+      <p><b>2. Spike Path — High/Overall Energy → <code>_SpikeAmp</code></b></p>
+      <ul class="tight">
+        <li>RMS-like volume:
+          \[
+            v = \sqrt{\frac{1}{N}\sum_i \text{spec}[i]^2}
+          \]
+        </li>
+        <li>Apply gain & compression, clamp to \([0,1]\).</li>
+        <li>Envelope smoothing (attack/decay):
+          \[
+            v_{\text{env}} \leftarrow \text{lerp}(v_{\text{env}}, v,\; k_{\text{rise/fall}}\Delta t)
+          \]
+        </li>
+        <li>Map to spike:
+          \[
+            \_SpikeAmp = \text{clamp01}(\text{baseSpikeAmp} + v_{\text{env}} \cdot \text{spikeAmpMax})
+          \]
+        </li>
+      </ul>
+
+      <p><b>3. Pulse Path — Low-Frequency Focus → <code>_Pulse</code></b></p>
+      <ul class="tight">
+        <li>Choose a kick-focused band around \(f_c \approx 70\text{–}100\text{ Hz}\) with bandwidth \(B\) (e.g., 80 Hz).</li>
+        <li>Band energy:
+        \[
+            E_{\mathrm{low}} =
+            \sum_{f\in\,[f_c-\frac{B}{2},\,f_c+\frac{B}{2}]}
+            \mathrm{spec}[f]^2
+        \]
+        </li>
+
+        <li>Onset (spectral flux, positive changes only):
+          \[
+            \text{flux} = \sum_{f}\max(\text{spec}[f]-\text{spec}_{\text{prev}}[f],\;0)
+          \]
+        </li>
+        <li>Envelope both signals with fast attack / slower release:
+          \[
+            E_{\text{env}},\; \text{flux}_{\text{env}}
+          \]
+        </li>
+        <li>Energy shaping (gamma, tail/decay for heartbeat feel):
+          \[
+            \tilde{E}=\text{clamp01}\big((E_{\text{low}}\cdot s)^{\gamma}\big),\quad
+            \text{beatEnv}=\max(e^{-\lambda \Delta t}\cdot \text{beatEnv},\; \tilde{E})
+          \]
+        </li>
+        <li>Combine energy + onset:
+          \[
+            c=\text{clamp01}(w_E\cdot \text{beatEnv}+w_O\cdot \text{flux}_{\text{env}})
+          \]
+        </li>
+        <li>Bias & output gain:
+          \[
+            \_Pulse=\text{clamp01}\big(b+(1-b)\cdot c\big)\cdot g_{\text{out}}
+          \]
+        </li>
+      </ul>
+
+      <p><b>4. Rotation Coupled to Pulse</b></p>
+      <ul class="tight">
+        <li>Angular speed:
+          \[
+            \omega = \text{lerp}(\omega_{\min}, \omega_{\max}, \_Pulse)\cdot s_{\text{spin}}
+          \]
+        </li>
+        <li>Rotate around a fixed world-space axis per frame:
+          \(\Delta \theta = \omega \Delta t\).</li>
+      </ul>
+
+      <br><br>
+      <h3>Takeaways</h3>
+      <ul>
+        <li>Shader Graph is essentially <b>math expressed visually</b>; understanding noise → mask → displacement is the key.</li>
+        <li>Separating <b>high vs. low frequency bands</b> made the visual response much more expressive.</li>
+        <li>Different tracks require different parameter tuning — experimentation is part of the process.</li>
+        <li>Adding <b>rotation linked to pulse</b> gave the sculpture a stronger sense of presence, beyond just surface changes.</li>
+      </ul>
+    </div>
+  </body>
+</html>

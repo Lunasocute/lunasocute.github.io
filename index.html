@@ -87,11 +87,11 @@
                 </a>
               </div>                
             </div>
-            <div class="section__text">
-                <p>Hi, I am Luna, an independent Developer living in Bay Area. </p>
-                <p>My hometown is <a href="https://en.wikipedia.org/wiki/Nanxun">NanXun</a>, a town lands south of the Yangtze River (江南).</p>
-                <p>I have an adorable silver-shaded cat, and I named him Python.</p>
-            </div> 
+        <div class="section__text">
+            <p>Hi, I'm an independent engineer and MSCS student in the Bay Area, exploring the space where computer graphics meets generative AI.</p>
+            <p>My hometown is <a href="https://en.wikipedia.org/wiki/Nanxun">Nanxun</a>, at south of the Yangtze River (江南), which quietly shaped my love for atmosphere, light, and handcrafted worlds.</p>
+            <p>I'm interested in building high-performance graphics pipelines and style-conditioned diffusion models, and dream about neuro-symbolic 3D world models — usually with my silver-shaded cat, Python, sleeping next to the keyboard.</p>
+        </div>
             
 
            
@@ -107,6 +107,14 @@
         </div>
         <div id="projects-container">
           <!-- <div class="project-rows"> -->
+
+            <div class="project-block" onclick="showProjectDetails('project11')">
+              <div class="overlay"></div>
+              <img src="assets\project_cover\diffusion.png" alt="Project 11">
+              <div class="project-info">
+                <h3>Style-Conditioned Diffusion on WikiArt<br></h3>
+              </div>
+            </div>
 
             <div class="project-block" onclick="showProjectDetails('project10')">
               <div class="overlay"></div>
@@ -197,6 +205,15 @@
           <div id="projectModal" class="modal">
             <div class="modal-content"  style="background-color: rgb(37, 37, 37);">
               <span class="close" onclick="closeProjectDetails()">&times;</span>
+
+              <div class="project-details" id="project11-details">
+                <img src="assets\project_detail\epoch_style_grid.jpg" alt="">
+                <div class="project-description">
+                  <h2>Style-Conditioned Diffusion on WikiArt</h2>
+                  <p>Developed a lightweight, parameter-efficient adapter for Stable Diffusion v1.5 to perform zero-shot artistic style transfer on the WikiArt dataset. Engineered a custom Style-Aware Cross-Attention Processor to replace standard attention modules, injecting style cues via learnable Key/Value projections and a gated mechanism. </p>
+                  <a href="assets/style_diffusion.pdf" class="project-link" target="_blank">Link</a>
+                </div>
+              </div>
 
               <div class="project-details" id="project10-details">
                 <img src="assets\project_detail\synthshort.gif" alt="">
@@ -326,7 +343,7 @@
       </div>
     </section>
     <footer>
-      <p>Copyright &#169; 2024 Luna Tian. All Rights Reserved.</p>
+      <p>Copyright &#169; 2025 Luna Tian. All Rights Reserved.</p>
     </footer>
     
      

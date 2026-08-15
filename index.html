@@ -108,6 +108,14 @@
         <div id="projects-container">
           <!-- <div class="project-rows"> -->
 
+            <div class="project-block" onclick="showProjectDetails('project12')">
+              <div class="overlay"></div>
+              <img src="assets/project_cover/prune3dgs.png" alt="Project 12">
+              <div class="project-info">
+                <h3>Prune3DGS<br></h3>
+              </div>
+            </div>
+
             <div class="project-block" onclick="showProjectDetails('project11')">
               <div class="overlay"></div>
               <img src="assets\project_cover\diffusion.png" alt="Project 11">
@@ -205,6 +213,15 @@
           <div id="projectModal" class="modal">
             <div class="modal-content"  style="background-color: rgb(37, 37, 37);">
               <span class="close" onclick="closeProjectDetails()">&times;</span>
+
+              <div class="project-details" id="project12-details">
+                <img src="assets/project_detail/prune3dgs.png" alt="">
+                <div class="project-description">
+                  <h2>Saliency-Aware pruning for 3D Gaussian Splatting</h2>
+                  <p>A post-training compression pipeline for 3D Gaussian Splatting (3DGS) models that removes background noise while preserving foreground objects. The system renders training views from a trained gsplat checkpoint, segments regions with Segment Anything (SAM), groups Gaussians into geometric–semantic clusters via constrained union-find, and scores each cluster with a multi-view visibility heuristic (G*).</p>
+                  <a href="assets/saliency_aware_3dgs_pruning_report.pdf" class="project-link" target="_blank">Link</a>
+                </div>
+              </div>
 
               <div class="project-details" id="project11-details">
                 <img src="assets\project_detail\epoch_style_grid.jpg" alt="">

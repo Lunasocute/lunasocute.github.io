@@ -438,7 +438,7 @@
     st.veins = 1 - smooth(.66, .98, leaving);
     st.caustic = caustic;
     // A few stars are already out behind the moon, and the sky fills in as it leaves.
-    st.stars = (.3 + .7 * smooth(.45, .95, leaving)) * (1 - caustic * .72);
+    st.stars = (.65 + .35 * smooth(.45, .95, leaving)) * (1 - caustic * .72);
     st.chains = chainsIn;
     // Chains creep in from the screen's edges as the first page scrolls away, then stay.
     st.side = smooth(.02, .58, leaving);

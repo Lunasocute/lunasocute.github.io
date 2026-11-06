@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Noise and Post-Process Shaders — Luna Tian</title>
+    <meta name="description" content="A Qt and OpenGL shader viewer with GLSL surface shaders, vertex deformation, and screen-space effects built from Sobel filters, Worley noise, and domain-warped fBM.">
+    <link rel="icon" href="../assets/avatar.jpg">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../writeup.css">
+  </head>
+  <body>
+    <a class="back" href="../index.html#projects">‹ Projects</a>
+    <div class="container">
+      <h1>Noise and <span style="white-space:nowrap">Post-Process</span> Shaders</h1>
+      <div>Luna Tian · CIS 4600/5600 Interactive Computer Graphics, University of Pennsylvania</div>
+
+      <figure>
+        <video src="../assets/project_detail/shader.mp4" autoplay muted loop playsinline controls style="width:100%"></video>
+        <figcaption>Fog, vertex deformation, Sobel edges, Worley glass, matcap materials, and surface normals, all switched live.</figcaption>
+      </figure>
+
+      <h2>Overview</h2>
+      <p>A real-time shader viewer built with Qt and OpenGL. The same 3D character and backdrop can be drawn with different surface shaders and post-process shaders, chosen from a control panel while the scene runs. Everything visual is written in GLSL: how vertices move, how surfaces take their color, and how the finished image is filtered.</p>
+
+      <h2>Functions</h2>
+      <ul class="tight">
+        <li><b>Orbit camera:</b> drag to spin around the model, and zoom or pan, in the style of a polar spherical camera.</li>
+        <li><b>Surface shaders:</b> Lambert, Blinn-Phong, and matcap, with red wax, silver, plastic, gold, haunted, and surface normal materials.</li>
+        <li><b>Vertex deformation:</b> the model morphs toward a cube and back while a color palette moves across it.</li>
+        <li><b>Post-process effects:</b> Sobel edges, Gaussian blur, Worley-noise glass, and an animated fog.</li>
+      </ul>
+
+      <h2>How It Works</h2>
+
+      <h3>Two render passes</h3>
+      <p>The first pass draws the 3D scene into an off-screen framebuffer instead of the screen. The second pass draws a full-screen quad, using that image as a texture. A post-process shader runs on every pixel of the quad, so it can read any part of the frame and change where each pixel samples from.</p>
+
+      <h3>Surface shaders</h3>
+      <p><b>Blinn-Phong.</b> Adds a specular highlight to Lambert shading. With view direction \(\mathbf{V}\), light direction \(\mathbf{L}\), and normal \(\mathbf{N}\), the highlight depends on how close the normal is to the halfway vector:</p>
+      <p>\[ \mathbf{H} = \frac{\mathbf{V} + \mathbf{L}}{\|\mathbf{V} + \mathbf{L}\|} \]</p>
+      <p>\[ I_s = \max(\mathbf{H} \cdot \mathbf{N},\, 0)^{35} \]</p>
+
+      <p><b>Matcap.</b> A single image of a shaded sphere stands in for the whole material. The normal is moved into camera space, and its \(x\) and \(y\) become the coordinates used to read the image. Swapping the image changes the material without any lighting calculation.</p>
+      <p>\[ (u, v) = \frac{1}{2}(n_x, n_y) + \frac{1}{2} \]</p>
+
+      <p><b>Vertex deformation.</b> Dividing a vertex by its largest coordinate pushes it onto the surface of a cube. The vertex shader blends between the original position and that cube over time, reaching 80% at its peak:</p>
+      <p>\[ \mathbf{p}_{\text{cube}} = \frac{4\,\mathbf{p}}{\max(|p_x|, |p_y|, |p_z|)} \]</p>
+      <p>\[ s(t) = \frac{1}{2}\sin t + \frac{1}{2} \]</p>
+      <p>\[ k(t) = 0.8\,\text{smoothstep}(0, 1, s(t)) \]</p>
+      <p>\[ \mathbf{p}' = (1 - k)\,\mathbf{p} + k\,\mathbf{p}_{\text{cube}} \]</p>
+      <p>The fragment shader mixes the model’s texture with a cosine color palette, offset by position along \(x\) and by time, so bands of color travel across the body.</p>
+
+      <h3>Screen-space filters</h3>
+      <p><b>Sobel.</b> Two kernels estimate how quickly the color changes horizontally and vertically around each pixel. Their combined magnitude is bright at edges and black in flat areas.</p>
+      <p>\[ K_x = \begin{bmatrix} 3 & 0 & -3 \\ 10 & 0 & -10 \\ 3 & 0 & -3 \end{bmatrix} \]</p>
+      <p>\[ K_y = \begin{bmatrix} 3 & 10 & 3 \\ 0 & 0 & 0 \\ -3 & -10 & -3 \end{bmatrix} \]</p>
+      <p>\[ G = \sqrt{G_x^2 + G_y^2} \]</p>
+
+      <p><b>Gaussian blur.</b> Each output pixel is a weighted average of the 11×11 block around it, with coordinates clamped at the image border.</p>
+
+      <h3>Noise effects</h3>
+      <p><b>Worley glass.</b> Worley noise scatters one random point in each grid cell, with 20 cells per unit of screen height, and returns the distance \(d\) to the nearest point. A central difference gives the slope of that distance field. The slope bends the texture lookup, like light passing through rippled glass, and \(d\) adds a soft shading to each cell:</p>
+      <p>\[ \mathbf{uv}' = \mathbf{uv} + 0.0007\,\nabla d \]</p>
+      <p>\[ C = \text{image}(\mathbf{uv}')\,(0.9 + 0.3\,d) \]</p>
+
+      <p><b>Warp fog (extra credit).</b> Fractal Brownian motion \(f\) sums six octaves of interpolated noise, doubling the frequency and halving the amplitude each time. Two copies of \(f\) form a 2D offset \(w\). Feeding one offset into the next, known as domain warping, turns the noise into curling, smoke-like shapes:</p>
+      <p>\[ w(\mathbf{p}) = 2\big(f(\mathbf{p}), f(\mathbf{p} + (4, 1))\big) - 1 \]</p>
+      <p>\[ \mathbf{q} = w(\mathbf{p} + t\,(0.1, 0.3)) \]</p>
+      <p>\[ \mathbf{r} = w(\mathbf{p} + \mathbf{q}) \]</p>
+      <p>The offset \(\mathbf{r}\) also displaces the image, so the scene appears to waver behind the fog. Fog density comes from the warped noise itself, and it blends the image toward a color running from dark to acid green. The sampling point \(\mathbf{p}\) moves with a constant wind, which keeps the fog drifting across the frame.</p>
+      <p>\[ \rho = \text{smoothstep}(0.2, 0.6, f(\mathbf{p}+\mathbf{r})^2) \]</p>
+
+      <h2>Tools</h2>
+      <table>
+        <tr><th>Tool</th><th>Used for</th></tr>
+        <tr><td>GLSL 3.30</td><td>All vertex, fragment, and post-process shaders</td></tr>
+        <tr><td>C++, OpenGL</td><td>Camera, framebuffer setup, and the two render passes</td></tr>
+        <tr><td>Qt</td><td>Window, shader menus, and mouse input</td></tr>
+        <tr><td>Qt Creator</td><td>Building and running the project</td></tr>
+      </table>
+
+      <p class="subtle" style="margin-top:32px">Built on the course’s Qt framework, which provides the interface, the Lambert shader, the Sobel and Gaussian weights, and the model and texture assets. Source code is not public, as this is course work.</p>
+    </div>
+  </body>
+</html>

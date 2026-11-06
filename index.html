@@ -1,376 +1,340 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LT</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="mediaqueries.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Luna Tian</title>
+  <meta name="description" content="Luna Tian — master’s student in Computer Graphics and Game Technology (CGGT) at the University of Pennsylvania, with a bachelor’s in Computer Science from UC Berkeley.">
+  <meta name="theme-color" content="#000000">
+  <meta property="og:title" content="Luna Tian">
+  <meta property="og:description" content="Master’s student in Computer Graphics and Game Technology (CGGT) at the University of Pennsylvania, with a bachelor’s in Computer Science from UC Berkeley.">
+  <meta property="og:image" content="https://www.lunasocute.com/assets/avatar.jpg">
+  <link rel="icon" href="assets/avatar.jpg">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&display=swap" rel="stylesheet">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
-
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
-    <!-- <link href="https://fonts.googleapis.com/css2?family=Courgette&display=swap" rel="stylesheet"> -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..700&family=Pirata+One&family=Almendra:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script>document.documentElement.classList.add('js');</script>
 </head>
 
 <body>
-    <!-- <audio controls>
-      <source src=".\assets\music\Slushii - Four Seasons.mp3" type="audio/mpeg"> -->
-      <!-- <source src=".\assets\music\barnes blvd. - Intro (feat. Rook1e).mp3" type="audio/mpeg"> -->
-      <!-- <source src=".\assets\music\Nujabes,Fat Jon - Aruarian Dance.mp3" type="audio/mpeg"> -->
-    <!-- </audio> -->
+  <canvas id="gl" aria-hidden="true"></canvas>
 
-    <div class="header">
-        <nav id="desktop-nav">
-            <!-- <div class="logo">Luna Tian</div> -->
-            <div>
-                <ul class="nav-links">
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#projects">Projects</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </div>
-        </nav>
-        <nav id="hamburger-nav">
-            <!-- <div class="logo">Luna Tian</div> -->
-            <div class="hamburger-menu">
-                <div class = "hamburger-icon" onclick="toggleMenu()">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-                <div class="menu-links">
-                    <li><a href="#about" onclick="toggleMenu()">About</a></li>
-                    <li><a href="#projects" onclick="toggleMenu()">Projects</a></li>
-                    <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
-                </div>
-            </div>
-        </nav>            
-    </div>  
-    <div id="particles-js" >
-        <div id="greeting">
-            <h1>Luna Tian</h1>
-            <!-- <h2>&nbspEngineer</h2>            -->
-        </div>
-        <img src="./assets/arrow-down.png" alt="arrow down" class="icon arrow"
-        onclick="location.href='./#about'"/>
-    </div>
-  
-    <section id="about">
-        <div class="title">
-            <p class="section__text__p1">Get To Know More</p>
-            <h1>About Me</h1>
-        </div>
+  <nav class="nav" aria-label="Main">
+    <span class="nav-thumb" aria-hidden="true"></span>
+    <a href="#top" class="nav-mark" data-nav="top" aria-label="Back to top">LT</a>
+    <a href="#about" data-nav="about">About</a>
+    <a href="#projects" data-nav="projects">Projects</a>
+    <a href="#contact" data-nav="contact">Contact</a>
+  </nav>
 
-        <div class="section-container">
-            <div class="section__pic">
-              <div class="pic-container">
-                <img src="./assets/profile.jpg" alt="profile picture" class="about-pic">
-              </div>
-              <div id="socials-container">
-                <a href="https://www.linkedin.com/in/lunat618/" target="_blank">
-                  <img src="./assets/linkedin.png" alt="linkedin" title="linkedin" class="icon">
-                </a>
-                <a href="https://github.com/Lunasocute" target="_blank">
-                  <img src="./assets/github.png" alt="github-profile" title="github" class="icon">
-                </a>
-                <a href="./assets/resume.pdf" target="_blank">
-                  <img src="./assets/self.png" alt="cv" title="cv" class="icon">
-                </a>
-              </div>                
-            </div>
-        <div class="section__text">
-            <p>Hi, I'm a Software Engineer and Computer Science student in the Bay Area, exploring the concept of CG & CV. Logic, intuition, and art are how I make sense of the world. I'm drawn to CG & CV because I want to build tech that's clever, efficient, and aesthetically timeless.</p>
-            <p>My hometown is <a href="https://en.wikipedia.org/wiki/Nanxun">Nanxun</a>, at south of the Yangtze River (江南), which quietly shaped my love for atmosphere, light, and handcrafted worlds.</p>
-            <p>I often dream of hanging out with my cat in neon-shaded 3D world models. (Hope this dream could come true sooner.ヾ(*ΦωΦ)ツ)</p>
-        </div>
-            
+  <main>
+    <section id="top" class="hero">
+      <div class="hero-pin">
+        <h1 class="hero-name">Luna</h1>
+        <span class="hero-cue" aria-hidden="true"></span>
+      </div>
+    </section>
 
-           
+    <section id="about" class="about">
+      <div class="about-card reveal">
+        <img src="assets/profile-tarot.webp" alt="Luna drawn as The High Priestess tarot card" width="978" height="1608">
+      </div>
+      <div class="about-copy reveal">
+        <h2>Hi, I’m Luna Tian.</h2>
+        <p>I’m a master’s student in Computer Graphics and Game Technology (CGGT) at the University of Pennsylvania, with a bachelor’s in Computer Science from UC Berkeley. Math and physics are how I build worlds, logic is how I take engineering problems apart, and art is how I imagine a future that feels harmonious and alive.</p>
+        <div class="pills">
+          <a class="pill" href="https://www.linkedin.com/in/lunat618/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="pill" href="https://github.com/Lunasocute" target="_blank" rel="noopener">GitHub</a>
+          <a class="pill" href="assets/resume.pdf" target="_blank" rel="noopener">Résumé</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="projects">
+      <header class="section-head reveal">
+        <h2 class="display">Projects</h2>
+      </header>
+
+      <div class="stack">
+        <article class="card card-feature" data-video="assets/project_detail/subdivision.mp4" data-ratio="926/646" data-fit="contain">
+          <button class="card-open" type="button" aria-haspopup="dialog">
+            <span class="card-copy">
+              <span class="eyebrow">C++ · OpenGL · Half-Edge Mesh</span>
+              <span class="card-title">Catmull-Clark Subdivision</span>
+              <span class="card-line">A cow mesh refined from 5,804 faces to over a million, in about six seconds.</span>
+              <span class="card-more">Learn more</span>
+            </span>
+            <span class="card-media"><img src="assets/project_cover/subdivision.jpg" alt="" loading="lazy"></span>
+          </button>
+          <div class="card-detail" hidden>
+            <h2>Catmull-Clark Subdivision</h2>
+            <p>A mesh editor in C++, Qt, and OpenGL, built on a hand-written half-edge data structure. It loads polygon meshes from OBJ files, edits vertices and faces, and smooths any closed mesh with Catmull-Clark subdivision. Each level adds face points and edge points, moves the original vertices, and rebuilds every face as quads. Four levels take the cow from 5,804 faces to 1,114,368, in about 6.2 seconds of subdivision time in a debug build, with time growing almost in step with mesh size.</p>
+            <a class="pill pill-solid" href="graphics/subdivision.html" target="_blank" rel="noopener">Open the write-up</a>
           </div>
-        <img src="./assets/arrow-down.png" alt="arrow down" class="icon arrow"
-        onclick="location.href='./#projects'"/>
-    </section>
+        </article>
 
-    <section id="projects">
-        <div class="title">
-            <p class="section__text__p1">Browse My Recent</p>
-            <h1>Projects</h1>            
-        </div>
-        <div id="projects-container">
-          <!-- <div class="project-rows"> -->
+        <article class="card card-feature" data-video="assets/project_detail/shader-warp.mp4" data-ratio="4/3" data-fit="contain">
+          <button class="card-open" type="button" aria-haspopup="dialog">
+            <span class="card-copy">
+              <span class="eyebrow">C++ · OpenGL · GLSL</span>
+              <span class="card-title">Noise and Post-Process Shaders</span>
+              <span class="card-line">One live scene, with switchable materials, screen-space filters, and a drifting noise fog.</span>
+              <span class="card-more">Learn more</span>
+            </span>
+            <span class="card-media"><img src="assets/project_cover/shader.jpg" alt="" loading="lazy"></span>
+          </button>
+          <div class="card-detail" hidden>
+            <h2>Noise and Post-Process Shaders</h2>
+            <p>A Qt and OpenGL viewer that switches shaders live on a 3D character. Surface shaders include Blinn-Phong, matcap materials, and a vertex shader that morphs the model toward a cube. Each frame can then pass through a screen-space effect from an off-screen framebuffer: Sobel edges, Gaussian blur, a rippled glass made from Worley noise, or, for extra credit, an animated fog made from domain-warped fBM.</p>
+            <a class="pill pill-solid" href="graphics/shaders.html" target="_blank" rel="noopener">Open the write-up</a>
+          </div>
+        </article>
 
-            <div class="project-block" onclick="showProjectDetails('project12')">
-              <div class="overlay"></div>
-              <img src="assets/project_cover/prune3dgs.png" alt="Project 12">
-              <div class="project-info">
-                <h3>Prune3DGS<br></h3>
-              </div>
-            </div>
+        <article class="card card-feature" data-video="assets/project_detail/fkik.mp4" data-ratio="1280/522">
+          <button class="card-open" type="button" aria-haspopup="dialog">
+            <span class="card-copy">
+              <span class="eyebrow">C++ · Unity · Computer Animation</span>
+              <span class="card-title">FK/IK Walking Character</span>
+              <span class="card-line">A character that walks to wherever you click, its feet planted on uneven terrain.</span>
+              <span class="card-more">Learn more</span>
+            </span>
+            <span class="card-media"><img src="assets/project_cover/fkik.jpg" alt="" loading="lazy"></span>
+          </button>
+          <div class="card-detail" hidden>
+            <h2>FK/IK Walking Character</h2>
+            <p>An animation toolkit in C++ with a native Unity plugin. Forward kinematics plays BVH motion capture across a joint hierarchy, and three inverse kinematics solvers (analytic limb, CCD, and pseudo-inverse) pose the skeleton toward its targets. A guide joint carries each walk cycle on toward the clicked target instead of snapping back to the origin. Foot IK reads the terrain’s height and normal under each foot, adjusts the hips, re-solves the legs, and aligns the feet to the slope.</p>
+            <a class="pill pill-solid" href="animation/fkik.html" target="_blank" rel="noopener">Open the write-up</a>
+          </div>
+        </article>
 
-            <div class="project-block" onclick="showProjectDetails('project11')">
-              <div class="overlay"></div>
-              <img src="assets\project_cover\diffusion.png" alt="Project 11">
-              <div class="project-info">
-                <h3>Style-Conditioned Diffusion on WikiArt<br></h3>
-              </div>
-            </div>
+        <article class="card card-feature" data-detail="assets/project_detail/prune3dgs.png" data-ratio="799/650">
+          <button class="card-open" type="button" aria-haspopup="dialog">
+            <span class="card-copy">
+              <span class="eyebrow">3D Gaussian Splatting · SAM</span>
+              <span class="card-title">Prune3DGS</span>
+              <span class="card-line">Compress a trained scene by removing background noise while preserving what matters.</span>
+              <span class="card-more">Learn more</span>
+            </span>
+            <span class="card-media"><img src="assets/project_cover/prune3dgs.png" alt="" loading="lazy"></span>
+          </button>
+          <div class="card-detail" hidden>
+            <h2>Saliency-Aware pruning for 3D Gaussian Splatting</h2>
+            <p>A post-training compression pipeline for 3D Gaussian Splatting (3DGS) models that removes background noise while preserving foreground objects. The system renders training views from a trained gsplat checkpoint, segments regions with Segment Anything (SAM), groups Gaussians into geometric–semantic clusters via constrained union-find, and scores each cluster with a multi-view visibility heuristic (G*).</p>
+            <a class="pill pill-solid" href="assets/saliency_aware_3dgs_pruning_report.pdf" target="_blank" rel="noopener">Read the report</a>
+          </div>
+        </article>
 
-            <div class="project-block" onclick="showProjectDetails('project10')">
-              <div class="overlay"></div>
-              <img src="assets\project_cover\uni.png" alt="Project 10">
-              <div class="project-info">
-                <h3>Music-Driven Spiky Chrome Sphere<br></h3>
-              </div>
-            </div>
+        <article class="card card-feature" data-detail="assets/project_detail/epoch_style_grid.jpg" data-ratio="2560/2620">
+          <button class="card-open" type="button" aria-haspopup="dialog">
+            <span class="card-copy">
+              <span class="eyebrow">Stable Diffusion v1.5 · WikiArt</span>
+              <span class="card-title">Style-Conditioned Diffusion</span>
+              <span class="card-line">A lightweight adapter for zero-shot artistic style transfer.</span>
+              <span class="card-more">Learn more</span>
+            </span>
+            <span class="card-media"><img src="assets/project_cover/diffusion.png" alt="" loading="lazy"></span>
+          </button>
+          <div class="card-detail" hidden>
+            <h2>Style-Conditioned Diffusion on WikiArt</h2>
+            <p>Developed a lightweight, parameter-efficient adapter for Stable Diffusion v1.5 to perform zero-shot artistic style transfer on the WikiArt dataset. Engineered a custom Style-Aware Cross-Attention Processor to replace standard attention modules, injecting style cues via learnable Key/Value projections and a gated mechanism.</p>
+            <a class="pill pill-solid" href="assets/style_diffusion.pdf" target="_blank" rel="noopener">Read the report</a>
+          </div>
+        </article>
 
-            <div class="project-block" onclick="showProjectDetails('project8')">
-              <div class="overlay"></div>
-              <img src="assets\project_cover\rasterization.png" alt="Project 8">
-              <div class="project-info">
-                <h3>Triangle Rasterization<br></h3>
-              </div>
-            </div>
+        <article class="card card-feature" data-detail="assets/project_detail/synthshort.gif" data-ratio="1920/1080">
+          <button class="card-open" type="button" aria-haspopup="dialog">
+            <span class="card-copy">
+              <span class="eyebrow">Unity · Shader Graph · C#</span>
+              <span class="card-title">Music-Driven Spiky Chrome Sphere</span>
+              <span class="card-line">Real-time audio-reactive graphics that pulse and twist to the soundtrack.</span>
+              <span class="card-more">Learn more</span>
+            </span>
+            <span class="card-media"><img src="assets/project_cover/uni.png" alt="" loading="lazy"></span>
+          </button>
+          <div class="card-detail" hidden>
+            <h2>Music-Driven Spiky Chrome Sphere (Unity, Shader Graph + C#)</h2>
+            <p>An interactive demo showcasing real-time audio-reactive graphics, highlighting skills in game engine programming, shader development, and performance-conscious design.</p>
+            <a class="pill pill-solid" href="graphics/uni.html" target="_blank" rel="noopener">Open the write-up</a>
+          </div>
+        </article>
 
-            <div class="project-block" onclick="showProjectDetails('project0')">
-              <div class="overlay"></div>
-              <img src="assets\project_cover\spotal.jpg" alt="Project 0">
-              <div class="project-info">
-                <h3>Spotal<br>[In Progress]</h3>
-              </div>
-            </div>
-
-            <div class="project-block" onclick="showProjectDetails('project1')">
-              <div class="overlay"></div>
-              <img src="assets\project_cover\discordBot.png" alt="Project 1">
-              <div class="project-info">
-                <h3>humanID Verification Bot</h3>
-              </div>
-            </div>
-            <div class="project-block" onclick="showProjectDetails('project2')">
-              <div class="overlay"></div>
-              <img src="assets\project_cover\image.jpeg" alt="Project 2">
-              <div class="project-info">
-                <h3>Developer Console</h3>
-              </div>
-            </div>
-            <div class="project-block" onclick="showProjectDetails('project3')">
-              <div class="overlay"></div>
-              <img src="assets\project_cover\house.jpg" alt="Project 3">
-              <div class="project-info">
-                <h3>Housing Price Prediction</h3>
-              </div>
-            </div>
-
-            <div class="project-block" onclick="showProjectDetails('project9')">
-              <div class="overlay"></div>
-              <img src="assets\project_cover\cpu.png" alt="Project 9">
-              <div class="project-info">
-                <h3>RISC-V CPU Design<br></h3>
-              </div>
-            </div>    
-
-            <div class="project-block" onclick="showProjectDetails('project4')">
-              <div class="overlay"></div>
-              <img src="assets\project_cover\byow.jpg" alt="Project 4">
-              <div class="project-info">
-                <h3>BYOW</h3>
-              </div>
-            </div>
-            <div class="project-block" onclick="showProjectDetails('project5')">
-              <div class="overlay"></div>
-              <img src="assets\project_cover\spam.jpg" alt="Project 5">
-              <div class="project-info">
-                <h3>Spam Email Classification</h3>
-              </div>
-            </div>
-            <div class="project-block" onclick="showProjectDetails('project6')">
-              <div class="overlay"></div>
-              <img src="assets\project_cover\61c.jpg" alt="Project 6">
-              <div class="project-info">
-                <h3>numC</h3>
-              </div>
-            </div>
-            <div class="project-block" onclick="showProjectDetails('project7')">
-              <div class="overlay"></div>
-              <img src="assets\project_cover\git.png" alt="Project 7">
-              <div class="project-info">
-                <h3>GitLet</h3>
-              </div>
-            </div>
-
-            <!-- Add more project blocks as needed -->
-          <!-- </div> -->
-          <!-- Modal for displaying project details -->
-          <div id="projectModal" class="modal">
-            <div class="modal-content"  style="background-color: rgb(37, 37, 37);">
-              <span class="close" onclick="closeProjectDetails()">&times;</span>
-
-              <div class="project-details" id="project12-details">
-                <img src="assets/project_detail/prune3dgs.png" alt="">
-                <div class="project-description">
-                  <h2>Saliency-Aware pruning for 3D Gaussian Splatting</h2>
-                  <p>A post-training compression pipeline for 3D Gaussian Splatting (3DGS) models that removes background noise while preserving foreground objects. The system renders training views from a trained gsplat checkpoint, segments regions with Segment Anything (SAM), groups Gaussians into geometric–semantic clusters via constrained union-find, and scores each cluster with a multi-view visibility heuristic (G*).</p>
-                  <a href="assets/saliency_aware_3dgs_pruning_report.pdf" class="project-link" target="_blank">Link</a>
-                </div>
-              </div>
-
-              <div class="project-details" id="project11-details">
-                <img src="assets\project_detail\epoch_style_grid.jpg" alt="">
-                <div class="project-description">
-                  <h2>Style-Conditioned Diffusion on WikiArt</h2>
-                  <p>Developed a lightweight, parameter-efficient adapter for Stable Diffusion v1.5 to perform zero-shot artistic style transfer on the WikiArt dataset. Engineered a custom Style-Aware Cross-Attention Processor to replace standard attention modules, injecting style cues via learnable Key/Value projections and a gated mechanism. </p>
-                  <a href="assets/style_diffusion.pdf" class="project-link" target="_blank">Link</a>
-                </div>
-              </div>
-
-              <div class="project-details" id="project10-details">
-                <img src="assets\project_detail\synthshort.gif" alt="">
-                <div class="project-description">
-                  <h2>Music-Driven Spiky Chrome Sphere (Unity, Shader Graph + C#)</h2>
-                  <p>A interactive demo showcasing real-time audio-reactive graphics, highlighting skills in game engine programming, shader development, and performance-conscious design.</p>
-                  <a href=".\graphics\uni.html" class="project-link" target="_blank">Link</a>
-                </div>
-              </div>
-
-              <div class="project-details" id="project9-details">
-                <img src="assets\project_cover\cpu.png" alt="">
-                <div class="project-description">
-                  <h2>RISC-V CPU Design</h2>
-                  <p>Implemented a fully functional 32-bit RISC-V CPU in Logisim Evolution, including core modules such as the ALU (arithmetic, logic, shift, multiply), Register File with 32 registers (x0 hardwired to zero), Immediate Generator, Control Logic, and aligned Data Memory with write masks. The design was extended into a two-stage pipelined processor (IF, ID/EX/MEM/WB) with branch flush handling, supporting arithmetic, load/store, branch, and jump instructions.</p>
-                  <a href=".\cs61c\cpu.html" class="project-link" target="_blank">Link</a>
-                </div>
-              </div>
-
-              <div class="project-details" id="project8-details">
-                <img src="assets\project_detail\bilinear.png" alt="">
-                <div class="project-description">
-                  <h2>Triangle Rasterization</h2>
-                  <p>A custom OpenGL rasterizer in C++ with point-in-triangle tests, bounding-box optimization, anti-aliasing (supersampling), and mipmap-based texture mapping for efficient, high-quality rendering.</p>
-                  <a href=".\cs184\hw1.html" class="project-link" target="_blank">Link</a>
-                </div>
-              </div>
-
-              <div class="project-details" id="project0-details">
-                <img src="assets\project_cover\spotal.jpg" alt="discord bot">
-                <div class="project-description">
-                  <h2>Spotal</h2>
-                  <p>Location-based photography sharing hub.</p>
-                  <a href="https://tinyurl.com/4nezkr38" class="project-link" target="_blank">Link</a>
-                </div>
-              </div>
-
-              <div class="project-details" id="project1-details">
-                <img src="assets\project_detail\discord-bot.gif" alt="discord bot">
-                <div class="project-description">
-                  <h2>humanId Discord Bot</h2>
-                  <p>A verification bot offers a 100% anonymous option for Discord authentication to help server owner set the role and permission automatically.</p>
-                  <a href="https://docs.human-id.org/discord-bot-integration-guide" class="project-link" target="_blank">Link</a>
-                </div>
-              </div>
-              <div class="project-details" id="project2-details">
-                <img src="assets\project_detail\dc.gif" alt="Project 2">
-                <div class="project-description">
-                  <h2>Developer Console</h2>
-                  <p> humanID clients' platform to organize their credential information.</p>
-                  <a href="https://github.com/human-internet/developerconsole/tree/develop" class="project-link" target="_blank">Link</a>
-                </div>
-              </div>
-              <div class="project-details" id="project3-details">
-                <img src="assets\project_cover\house.jpg" alt="Project 3">
-                <div class="project-description">
-                  <h2>Housing Price Prediction</h2>
-                  <p> A data science project using 200K+ Cook County housing records to build preprocessing pipelines and regression models, exploring feature engineering, predictive accuracy, and fairness issues such as multicollinearity and regressive taxation bias.</p>
-                  <a href="./assets/project_detail/project1.pdf" class="project-link" target="_blank">Link</a>
-                </div>
-              </div>
-              <div class="project-details" id="project4-details">
-                <img src="assets\project_detail\maze.gif" alt="Project 4">
-                <div class="project-description">
-                  <h2>BYOW</h2>
-                  <p> 2d tile-based game that generates a series of random mazes with interconnected rooms and hallways. </p>
-                  <a href="https://www.youtube.com/watch?v=ldodHP_z84c" class="project-link">Link</a>
-                </div>
-              </div>
-              <div class="project-details" id="project5-details">
-                <img src="assets\project_cover\spam.jpg" alt="Project 4">
-                <div class="project-description">
-                  <h2>Spam Email Classification</h2>
-                  <p> A machine learning project using the SpamAssassin dataset (8K+ emails) to build text preprocessing pipelines and logistic regression models, achieving ~89.5% accuracy while exploring precision/recall trade-offs, ROC analysis, and feature enhancements for improved spam detection. </p>
-                  <a href="./assets/project_detail/project2.pdf" class="project-link">Link</a>
-                </div>
-              </div>
-              <div class="project-details" id="project6-details">
-                <img src="assets\project_cover\numc.png" alt="Project 6">
-                <div class="project-description">
-                  <h2>numC</h2>
-                  <p> C library that mirros NumPy's matrix functionalities, optimize the matrix operation using parallel programming.</p>
-                  <a href="https://github.com/Lunasocute/numC" class="project-link" target="_blank">Link</a>
-                </div>
-              </div>
-              <div class="project-details" id="project7-details">
-                <img src="assets\project_detail\gitlet.png" alt="Project 7">
-                <div class="project-description">
-                  <h2>GitLet</h2>
-                  <p> A version control system in Java featuring commits, rollbacks, resets, merges, and more.</p>
-                  <a href="https://github.com/Lunasocute/gitlet" class="project-link" target="_blank">Link</a>
-                </div>
-              </div>
-
-            </div>
-          </div>          
-        </div>
-     
-        <img src="./assets/arrow-down.png" alt="Arrow icon"
-          class="icon arrow" onclick="location.href='./#contact'"
-        />
-    </section>
-
-    <section id="contact">
-      <div class="title">
-        <p class="section__text__p1">Get in Touch</p>
-        <h1>Contact Me</h1>        
+        <!-- Hidden for now: uncomment to bring back.
+        <article class="card card-feature" data-detail="assets/project_detail/bilinear.png" data-ratio="800/600">
+          <button class="card-open" type="button" aria-haspopup="dialog">
+            <span class="card-copy">
+              <span class="eyebrow">C++ · OpenGL</span>
+              <span class="card-title">Triangle Rasterization</span>
+              <span class="card-line">Anti-aliasing and mipmapped textures, built from the point-in-triangle test up.</span>
+              <span class="card-more">Learn more</span>
+            </span>
+            <span class="card-media"><img src="assets/project_cover/rasterization.png" alt="" loading="lazy"></span>
+          </button>
+          <div class="card-detail" hidden>
+            <h2>Triangle Rasterization</h2>
+            <p>A custom OpenGL rasterizer in C++ with point-in-triangle tests, bounding-box optimization, anti-aliasing (supersampling), and mipmap-based texture mapping for efficient, high-quality rendering.</p>
+            <a class="pill pill-solid" href="cs184/hw1.html" target="_blank" rel="noopener">Open the write-up</a>
+          </div>
+        </article>
+        -->
       </div>
 
-      <div class="contact-info-upper-container">
-        <div class="contact-info-container">
-          <img
-            src="./assets/email.png"
-            alt="Email icon"
-            class="icon contact-icon email-icon"
-          />
-          <p><a href="mailto:lunacute1777@gmail.com">lunacute1777@gmail.com</a></p>
-        </div>
-        <div class="contact-info-container">
-          <img
-            src="./assets/linkedin.png"
-            alt="LinkedIn icon"
-            class="icon contact-icon"
-          />
-          <p><a href="https://www.linkedin.com/in/lunat618/" target="_blank">LinkedIn</a></p>
-        </div>
+      <div class="wall">
+        <!-- Hidden for now: uncomment to bring back.
+        <article class="card" data-detail="assets/project_cover/spotal.jpg" data-ratio="1/1">
+          <button class="card-open" type="button" aria-haspopup="dialog">
+            <span class="card-media"><img src="assets/project_cover/spotal.jpg" alt="" loading="lazy" width="1469" height="1469"></span>
+            <span class="card-copy"><span class="card-title">Spotal</span><span class="card-tag">In progress</span></span>
+          </button>
+          <div class="card-detail" hidden>
+            <h2>Spotal</h2>
+            <p>Location-based photography sharing hub.</p>
+            <a class="pill pill-solid" href="https://tinyurl.com/4nezkr38" target="_blank" rel="noopener">Visit Spotal</a>
+          </div>
+        </article>
+        -->
+
+        <!-- Hidden for now: uncomment to bring back.
+        <article class="card" data-detail="assets/project_detail/discord-bot.gif" data-ratio="1/1">
+          <button class="card-open" type="button" aria-haspopup="dialog">
+            <span class="card-media"><img src="assets/project_cover/discordBot.png" alt="" loading="lazy" width="759" height="759"></span>
+            <span class="card-copy"><span class="card-title">humanID Verification Bot</span><span class="card-tag">Discord</span></span>
+          </button>
+          <div class="card-detail" hidden>
+            <h2>humanID Discord Bot</h2>
+            <p>A verification bot offers a 100% anonymous option for Discord authentication to help server owner set the role and permission automatically.</p>
+            <a class="pill pill-solid" href="https://docs.human-id.org/discord-bot-integration-guide" target="_blank" rel="noopener">Integration guide</a>
+          </div>
+        </article>
+        -->
+
+        <!-- Hidden for now: uncomment to bring back.
+        <article class="card" data-detail="assets/project_detail/dc.gif" data-ratio="1/1">
+          <button class="card-open" type="button" aria-haspopup="dialog">
+            <span class="card-media"><img src="assets/project_cover/image.jpeg" alt="" loading="lazy" width="225" height="225"></span>
+            <span class="card-copy"><span class="card-title">Developer Console</span><span class="card-tag">humanID</span></span>
+          </button>
+          <div class="card-detail" hidden>
+            <h2>Developer Console</h2>
+            <p>humanID clients’ platform to organize their credential information.</p>
+            <a class="pill pill-solid" href="https://github.com/human-internet/developerconsole/tree/develop" target="_blank" rel="noopener">Source on GitHub</a>
+          </div>
+        </article>
+        -->
+
+        <!-- Hidden for now: uncomment to bring back.
+        <article class="card" data-detail="assets/project_cover/house.jpg" data-ratio="577/576">
+          <button class="card-open" type="button" aria-haspopup="dialog">
+            <span class="card-media"><img src="assets/project_cover/house.jpg" alt="" loading="lazy" width="577" height="576"></span>
+            <span class="card-copy"><span class="card-title">Housing Price Prediction</span><span class="card-tag">Data science</span></span>
+          </button>
+          <div class="card-detail" hidden>
+            <h2>Housing Price Prediction</h2>
+            <p>A data science project using 200K+ Cook County housing records to build preprocessing pipelines and regression models, exploring feature engineering, predictive accuracy, and fairness issues such as multicollinearity and regressive taxation bias.</p>
+            <a class="pill pill-solid" href="assets/project_detail/project1.pdf" target="_blank" rel="noopener">Read the report</a>
+          </div>
+        </article>
+        -->
+
+        <!-- Hidden for now: uncomment to bring back.
+        <article class="card" data-detail="assets/project_cover/cpu.png" data-ratio="1/1">
+          <button class="card-open" type="button" aria-haspopup="dialog">
+            <span class="card-media"><img src="assets/project_cover/cpu.png" alt="" loading="lazy" width="1055" height="1055"></span>
+            <span class="card-copy"><span class="card-title">RISC-V CPU Design</span><span class="card-tag">Logisim Evolution</span></span>
+          </button>
+          <div class="card-detail" hidden>
+            <h2>RISC-V CPU Design</h2>
+            <p>Implemented a fully functional 32-bit RISC-V CPU in Logisim Evolution, including core modules such as the ALU (arithmetic, logic, shift, multiply), Register File with 32 registers (x0 hardwired to zero), Immediate Generator, Control Logic, and aligned Data Memory with write masks. The design was extended into a two-stage pipelined processor (IF, ID/EX/MEM/WB) with branch flush handling, supporting arithmetic, load/store, branch, and jump instructions.</p>
+            <a class="pill pill-solid" href="cs61c/cpu.html" target="_blank" rel="noopener">Open the write-up</a>
+          </div>
+        </article>
+        -->
+
+        <article class="card" data-detail="assets/project_detail/maze.gif" data-ratio="1/1">
+          <button class="card-open" type="button" aria-haspopup="dialog">
+            <span class="card-media"><img src="assets/project_cover/byow.jpg" alt="" loading="lazy" width="481" height="480"></span>
+            <span class="card-copy"><span class="card-title">BYOW</span><span class="card-tag">2D tile-based game</span></span>
+          </button>
+          <div class="card-detail" hidden>
+            <h2>BYOW</h2>
+            <p>2D tile-based game that generates a series of random mazes with interconnected rooms and hallways.</p>
+            <a class="pill pill-solid" href="https://www.youtube.com/watch?v=ldodHP_z84c" target="_blank" rel="noopener">Watch the demo</a>
+          </div>
+        </article>
+
+        <!-- Hidden for now: uncomment to bring back.
+        <article class="card" data-detail="assets/project_cover/spam.jpg" data-ratio="481/480">
+          <button class="card-open" type="button" aria-haspopup="dialog">
+            <span class="card-media"><img src="assets/project_cover/spam.jpg" alt="" loading="lazy" width="481" height="480"></span>
+            <span class="card-copy"><span class="card-title">Spam Email Classification</span><span class="card-tag">Machine learning</span></span>
+          </button>
+          <div class="card-detail" hidden>
+            <h2>Spam Email Classification</h2>
+            <p>A machine learning project using the SpamAssassin dataset (8K+ emails) to build text preprocessing pipelines and logistic regression models, achieving ~89.5% accuracy while exploring precision/recall trade-offs, ROC analysis, and feature enhancements for improved spam detection.</p>
+            <a class="pill pill-solid" href="assets/project_detail/project2.pdf" target="_blank" rel="noopener">Read the report</a>
+          </div>
+        </article>
+        -->
+
+        <article class="card" data-detail="assets/project_cover/numc.png" data-ratio="1/1">
+          <button class="card-open" type="button" aria-haspopup="dialog">
+            <span class="card-media"><img src="assets/project_cover/numc-cover.jpg" alt="" loading="lazy" width="1024" height="1024"></span>
+            <span class="card-copy"><span class="card-title">numC</span><span class="card-tag">C · Parallel programming</span></span>
+          </button>
+          <div class="card-detail" hidden>
+            <h2>numC</h2>
+            <p>C library that mirrors NumPy’s matrix functionalities, optimizing the matrix operations using parallel programming.</p>
+            <a class="pill pill-solid" href="https://github.com/Lunasocute/numC" target="_blank" rel="noopener">Source on GitHub</a>
+          </div>
+        </article>
+
+        <!-- Hidden for now: uncomment to bring back.
+        <article class="card" data-detail="assets/project_detail/gitlet.png" data-ratio="1/1">
+          <button class="card-open" type="button" aria-haspopup="dialog">
+            <span class="card-media"><img src="assets/project_cover/git.png" alt="" loading="lazy" width="3600" height="3600"></span>
+            <span class="card-copy"><span class="card-title">GitLet</span><span class="card-tag">Java</span></span>
+          </button>
+          <div class="card-detail" hidden>
+            <h2>GitLet</h2>
+            <p>A version control system in Java featuring commits, rollbacks, resets, merges, and more.</p>
+            <a class="pill pill-solid" href="https://github.com/Lunasocute/gitlet" target="_blank" rel="noopener">Source on GitHub</a>
+          </div>
+        </article>
+        -->
       </div>
     </section>
-    <footer>
-      <p>Copyright &#169; 2025 Luna Tian. All Rights Reserved.</p>
-    </footer>
-    
-     
-    <!-- particles js files -->
-    <script src="particles.js"></script>
-    <script src="app.js"></script>   
-    <script src="script.js"></script>
-    <script>
-      var audio = document.getElementById("myaudio");
-      audio.volume = 0.1;
-    </script>
+
+    <section id="contact" class="contact">
+      <div class="contact-inner">
+        <a class="contact-big reveal" href="mailto:lunatian@engineering.upenn.edu">Say hello.</a>
+        <div class="pills pills-center reveal">
+          <a class="pill pill-solid" href="mailto:lunatian@engineering.upenn.edu">lunatian@engineering.upenn.edu</a>
+          <a class="pill" href="https://www.linkedin.com/in/lunat618/" target="_blank" rel="noopener">LinkedIn</a>
+          <a class="pill" href="https://github.com/Lunasocute" target="_blank" rel="noopener">GitHub</a>
+          <a class="pill" href="assets/resume.pdf" target="_blank" rel="noopener">Résumé</a>
+        </div>
+      </div>
+      <footer class="footer">© 2026 Luna Tian. All rights reserved.</footer>
+    </section>
+  </main>
+
+  <dialog id="sheet" class="sheet" aria-label="Project details">
+    <div class="sheet-scrim"></div>
+    <div class="sheet-panel">
+      <button class="sheet-close" type="button" aria-label="Close">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+      </button>
+      <div class="sheet-media">
+        <img class="sheet-poster" alt="">
+        <img class="sheet-full" alt="">
+        <video class="sheet-full sheet-video" muted loop playsinline preload="none" hidden></video>
+      </div>
+      <div class="sheet-body"></div>
+    </div>
+  </dialog>
+
+  <script src="chrome.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

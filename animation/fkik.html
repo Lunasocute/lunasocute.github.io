@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FK/IK Walking Character — Luna Tian</title>
+    <meta name="description" content="An FK/IK animation toolkit in C++ with a native Unity plugin: motion capture playback, three IK solvers, and foot placement on uneven terrain.">
+    <link rel="icon" href="../assets/avatar.jpg">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../writeup.css">
+  </head>
+  <body>
+    <a class="back" href="../index.html#projects">‹ Projects</a>
+    <div class="container">
+      <h1>FK/IK Walking Character</h1>
+      <div>Luna Tian · CIS 4620/5620 Computer Animation, University of Pennsylvania</div>
+
+      <figure>
+        <video src="../assets/project_detail/fkik.mp4" autoplay muted loop playsinline controls style="width:100%"></video>
+        <figcaption>The character walks to each clicked target, with Foot IK keeping its feet on the terrain.</figcaption>
+      </figure>
+
+      <h2>Overview</h2>
+      <p>A character animation toolkit written in C++ and compiled into a native Unity plugin. It plays motion capture on a jointed skeleton, poses that skeleton with inverse kinematics, and uses both to make a character walk toward a target across uneven ground.</p>
+
+      <h2>Functions</h2>
+      <ul class="tight">
+        <li><b>Motion capture playback:</b> loads BVH clips and plays them on the Beta character, with interpolated joint rotations.</li>
+        <li><b>Interactive IK:</b> drag a target and the hand, foot, or hips follows, using a solver chosen from a menu.</li>
+        <li><b>Walk to a target:</b> click the terrain and the character turns and walks there, one walk cycle after another.</li>
+        <li><b>Foot IK:</b> feet stay planted and tilt to match the slope beneath them.</li>
+      </ul>
+
+      <h2>How It Works</h2>
+
+      <h3>Forward kinematics</h3>
+      <p>Each joint stores a transform relative to its parent. Walking the hierarchy from the root gives every joint its place in the world:</p>
+      <p>\[ T^{\text{global}}_{j} = T^{\text{global}}_{\text{parent}(j)} \; T^{\text{local}}_{j} \]</p>
+      <p>Each frame samples the clip’s rotation splines for all joints and its translation spline for the root, then updates the hierarchy.</p>
+
+      <h3>Inverse kinematics</h3>
+      <p>IK works backward: given where a hand or foot should go, find the joint rotations that put it there. There are three solvers, which suit different chains.</p>
+
+      <p><b>Limb IK (analytic).</b> For a three-joint limb with bone lengths \(l_1, l_2\) and a target at distance \(r_d\) from the upper joint, the law of cosines gives the middle joint’s bend. The upper joint then rotates to aim the limb at the target.</p>
+      <p>\[ \theta_2 = \pi - \arccos\!\left(\frac{l_1^2 + l_2^2 - r_d^2}{2\,l_1 l_2}\right) \]</p>
+
+      <p><b>CCD (iterative).</b> Works along the chain from the end joint inward. Each joint \(j\) rotates to bring the end effector closer to the target, with its share set by a per-joint weight \(w_j\). Here \(\mathbf{r}_{jn}\) points from the joint to the end effector and \(\mathbf{r}_{jd}\) from the joint to the target.</p>
+      <p>\[ \theta_j = w_j \arccos\!\left(\frac{\mathbf{r}_{jn} \cdot \mathbf{r}_{jd}}{\|\mathbf{r}_{jn}\|\,\|\mathbf{r}_{jd}\|}\right) \]</p>
+      <p>\[ \mathbf{a}_j = \frac{\mathbf{r}_{jn} \times \mathbf{r}_{jd}}{\|\mathbf{r}_{jn} \times \mathbf{r}_{jd}\|} \]</p>
+
+      <p><b>Pseudo-inverse (Jacobian).</b> Builds a Jacobian \(J\) relating joint rotations to end effector motion, then solves for the smallest joint change that reduces the error \(\mathbf{e}\). Each step is limited to 0.1 radians per axis, which keeps the pose stable.</p>
+      <p>\[ \Delta\boldsymbol{\theta} = J^{T}\left(J J^{T}\right)^{-1}\mathbf{e} \]</p>
+
+      <h3>Walking on terrain</h3>
+      <p><b>Guide joint.</b> A walk clip returns to its starting point when it loops. A virtual joint above the hips fixes this: before each cycle it moves to the character’s position on the ground and turns toward the target, so the next cycle continues from there.</p>
+      <p><b>Foot IK.</b> Each frame, Unity ray casts the terrain’s height and normal under each foot. The hips shift by the lower of the two foot heights, limb IK raises the foot on higher ground by the difference, and each foot rotates to align with the surface normal.</p>
+
+      <h2>Tools</h2>
+      <table>
+        <tr><th>Tool</th><th>Used for</th></tr>
+        <tr><td>C++</td><td>Transforms, skeleton, motion playback, and IK solvers</td></tr>
+        <tr><td>Unity 2022.3</td><td>Native plugin host, terrain ray casts, and the walking scene</td></tr>
+        <tr><td>OpenGL viewer</td><td>Testing FK and IK outside Unity</td></tr>
+        <tr><td>BVH</td><td>Motion capture data for the Beta character</td></tr>
+        <tr><td>Visual Studio, CMake</td><td>Building the toolkit and plugin</td></tr>
+      </table>
+
+      <p class="subtle" style="margin-top:32px">Built on the course’s Animation Toolkit framework, which provides the viewers, the Unity project, and the character assets. Source code is not public, as this is course work.</p>
+    </div>
+  </body>
+</html>

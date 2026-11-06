@@ -1,0 +1,132 @@
+/* Shared look for the long-form project write-ups. */
+:root {
+  --paper: #f3f6f8;
+  --dim: rgba(243, 246, 248, .66);
+  --hair: rgba(255, 255, 255, .14);
+  --chrome: linear-gradient(180deg, #ffffff 0%, #eef1f4 46%, #b4bdc6 100%);
+}
+
+* { box-sizing: border-box; }
+
+html {
+  background: #06070a;
+  color: var(--paper);
+  scrollbar-color: rgba(255, 255, 255, .28) transparent;
+  scrollbar-width: thin;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(1100px 620px at 50% -220px, #2c3142 0%, rgba(44, 49, 66, 0) 72%),
+    #06070a no-repeat;
+  /* Long technical reading: plain, comfortable type, deliberately not the home page's display fonts. */
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Segoe UI", system-ui, sans-serif;
+  font-size: 18px;
+  line-height: 1.62;
+  letter-spacing: -.011em;
+  -webkit-font-smoothing: antialiased;
+}
+.container { animation: rise .9s cubic-bezier(.2, .8, .2, 1) both; }
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } }
+
+.back {
+  font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+  position: fixed;
+  z-index: 10;
+  top: 14px;
+  left: 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 38px;
+  padding: 0 16px 0 12px;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  background: rgba(22, 24, 32, .55);
+  -webkit-backdrop-filter: blur(20px) saturate(1.6);
+  backdrop-filter: blur(20px) saturate(1.6);
+  box-shadow: inset 0 0 0 .5px rgba(255, 255, 255, .26), 0 8px 26px rgba(0, 0, 0, .3);
+  transition: transform .4s cubic-bezier(.2, 1.4, .4, 1);
+}
+.back:hover { transform: scale(1.04); }
+.back:active { transform: scale(.96); }
+
+.container {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: clamp(84px, 13vh, 150px) clamp(18px, 4vw, 32px) 120px;
+}
+
+h1 {
+  margin: 0 0 12px;
+  text-align: left;
+  font-size: clamp(38px, 6vw, 68px);
+  font-weight: 600;
+  line-height: 1.06;
+  letter-spacing: -.035em;
+  background: var(--chrome);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-bottom: .06em;
+  text-wrap: balance;
+}
+.container > h1 + div { text-align: left !important; color: var(--dim); }
+h2 {
+  margin: 2.6em 0 .55em;
+  font-size: clamp(27px, 3.4vw, 36px);
+  font-weight: 600;
+  line-height: 1.14;
+  letter-spacing: -.028em;
+}
+h3 { margin: 2.2em 0 .5em; font-size: 22px; font-weight: 600; letter-spacing: -.02em; }
+p { margin: 1em 0; color: rgba(243, 246, 248, .84); }
+li { color: rgba(243, 246, 248, .84); }
+b, strong { color: #fff; font-weight: 600; }
+
+a {
+  color: #fff;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(255, 255, 255, .4);
+  overflow-wrap: anywhere;
+  transition: text-decoration-color .3s ease;
+}
+a:hover { text-decoration-color: #fff; }
+
+img, video {
+  display: inline-block;
+  max-width: 100%;
+  height: auto;
+  border-radius: 14px;
+}
+figure { margin: 40px 0; text-align: center; }
+figcaption {
+  margin-top: 12px;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--dim);
+}
+
+table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+table:has(th) { font-size: 15px; }
+table:has(th) th,
+table:has(th) td { padding: 11px 12px; border-bottom: .5px solid var(--hair); text-align: left; }
+table:has(th) th { color: var(--dim); font-weight: 500; }
+
+code {
+  padding: 2px 6px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, .1);
+  font-family: ui-monospace, "SF Mono", "Cascadia Code", Menlo, Consolas, monospace;
+  font-size: .86em;
+}
+.subtle { color: var(--dim); font-size: 15px; }
+ul.tight li { margin: 6px 0; }
+.MathJax_Display { overflow-x: auto; overflow-y: hidden; }

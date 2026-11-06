@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Catmull-Clark Subdivision — Luna Tian</title>
+    <meta name="description" content="A half-edge mesh editor in C++, Qt, and OpenGL with Catmull-Clark subdivision, taking a cow mesh from 5,804 faces to over a million with near-linear scaling.">
+    <link rel="icon" href="../assets/avatar.jpg">
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../writeup.css">
+  </head>
+  <body>
+    <a class="back" href="../index.html#projects">‹ Projects</a>
+    <div class="container">
+      <h1>Catmull-Clark Subdivision</h1>
+      <div>Luna Tian · CIS 4600/5600 Interactive Computer Graphics, University of Pennsylvania</div>
+
+      <figure>
+        <video src="../assets/project_detail/subdivision.mp4" autoplay muted loop playsinline controls style="width:100%"></video>
+        <figcaption>Four levels of subdivision on the cow mesh. Every face has a random color, and each time is for that level alone.</figcaption>
+      </figure>
+
+      <h2>Overview</h2>
+      <p>A polygon mesh editor in the style of Maya or Blender, written in C++ with Qt and OpenGL. Meshes are stored in a half-edge data structure, which makes it possible to walk across a surface and change its topology directly. On top of that structure, Catmull-Clark subdivision turns a coarse mesh into a smoother one with many more faces.</p>
+
+      <h2>Functions</h2>
+      <ul class="tight">
+        <li><b>OBJ import:</b> loads closed meshes with faces of any number of sides and links up every half-edge with its opposite.</li>
+        <li><b>Mesh inspection:</b> select any vertex, half-edge, or face from a list and see it highlighted. Hotkeys step to the next half-edge, its opposite, its face, or its vertex.</li>
+        <li><b>Editing:</b> move vertices, recolor faces, add a vertex at an edge’s midpoint, and triangulate a face.</li>
+        <li><b>Subdivision:</b> one button runs a level of Catmull-Clark on the whole mesh, and it can be pressed repeatedly.</li>
+      </ul>
+
+      <h2>How It Works</h2>
+
+      <h3>Half-edge mesh</h3>
+      <p>Each edge is stored as two half-edges, one for each direction. A half-edge points to its next half-edge around the face, its opposite (“sym”), its face, and the vertex it ends at. Vertices and faces each keep a pointer to one half-edge.</p>
+      <p>Neighbors can then be reached by following pointers, with no searching. For example, repeating <b>next → sym</b> from a half-edge that points to a vertex visits every edge and face around that vertex.</p>
+
+      <h3>One level of Catmull-Clark</h3>
+      <p><b>1. Face points.</b> Each face gets a new point at the average of its vertices.</p>
+      <p>\[ \mathbf{f} = \frac{1}{k}\sum_{i=1}^{k} \mathbf{v}_i \]</p>
+
+      <p><b>2. Edge points.</b> Each edge is split once by a new vertex, placed using its two endpoints and the face points on both sides. The position has to be computed before the split, since splitting changes the pointers it depends on.</p>
+      <p>\[ \mathbf{e} = \frac{\mathbf{v}_1 + \mathbf{v}_2 + \mathbf{f}_1 + \mathbf{f}_2}{4} \]</p>
+
+      <p><b>3. Smooth the original vertices.</b> Each original vertex moves toward its surroundings. Here \(n\) is the number of edges meeting at the vertex, and the sums run over its \(n\) adjacent edge points and face points.</p>
+      <p>\[ \mathbf{v}' = \frac{n-2}{n}\,\mathbf{v} + \frac{\sum_i \mathbf{e}_i + \sum_i \mathbf{f}_i}{n^2} \]</p>
+
+      <p><b>4. Quadrangulate.</b> A face with \(k\) sides is rebuilt as \(k\) quads meeting at its face point. Two new half-edges are added per quad, and the half-edges going into and out of the center are saved so that neighboring quads can be paired as opposites once the loop is done.</p>
+      <p>The first level turns the cow’s triangles into three quads each. After that, every quad becomes four, so the face count grows by a factor of four per level.</p>
+
+      <h3>Performance</h3>
+      <p>Every face, edge, and vertex is handled a fixed number of times per level, and each lookup is either a pointer or a hash map access. A level’s running time should therefore grow in proportion to the mesh size. The measurements on the cow agree: each time the output grows fourfold, the time grows by 4.4 to 4.8 times.</p>
+      <table>
+        <tr><th>Faces</th><th>Time</th><th>Per output face</th></tr>
+        <tr><td>5,804 → 17,412</td><td>51 ms</td><td>2.9 µs</td></tr>
+        <tr><td>17,412 → 69,648</td><td>229 ms</td><td>3.3 µs</td></tr>
+        <tr><td>69,648 → 278,592</td><td>1,105 ms</td><td>4.0 µs</td></tr>
+        <tr><td>278,592 → 1,114,368</td><td>4,857 ms</td><td>4.4 µs</td></tr>
+      </table>
+      <p>All four levels take about 6.2 seconds in total. The cost per face rises slightly as the mesh grows, which may come from memory access as the mesh gets larger, though I did not profile it. Times come from <code>std::chrono</code> around the subdivision call only, excluding the GPU upload, in a debug build without compiler optimizations.</p>
+
+      <h2>Tools</h2>
+      <table>
+        <tr><th>Tool</th><th>Used for</th></tr>
+        <tr><td>C++</td><td>Half-edge structure, OBJ loading, and subdivision</td></tr>
+        <tr><td>OpenGL</td><td>Drawing the mesh and highlighting selections</td></tr>
+        <tr><td>Qt</td><td>Component lists, edit controls, and buttons</td></tr>
+        <tr><td>Qt Creator, MinGW</td><td>Building and running the project</td></tr>
+      </table>
+
+      <p class="subtle" style="margin-top:32px">Built on the course’s base code, which provides the application framework and the cow and cube meshes. Source code is not public, as this is course work.</p>
+    </div>
+  </body>
+</html>

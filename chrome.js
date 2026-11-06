@@ -79,6 +79,123 @@
     gl_Position = vec4(p*2.-1., 0., 1.);
   }`;
 
+  // The studio the metal reflects. A broad overhead gradient and a pale floor let the curve of the
+  // surface read as volume; the strips add the crisp streaks of polished chrome.
+  const STUDIO = `vec3 studio(vec3 r){
+    float y = r.y;
+    float a = atan(r.x, r.z);
+    vec3 c = mix(vec3(.02,.022,.03), vec3(.2,.215,.25), smoothstep(.0,.55,y));
+    c = mix(c, vec3(1.75,1.78,1.85), smoothstep(.5,.6,y)*smoothstep(1.,.86,y));
+    c += vec3(.44,.47,.54)*smoothstep(-.06,-.85,y);
+    float s1 = abs(a - 1.85 + .3*y), s2 = abs(a + 1.15 - .35*y);
+    c += vec3(1.25,1.28,1.38)*smoothstep(.12,.06,s1)*smoothstep(-.7,-.25,y)*smoothstep(.75,.35,y);
+    c += vec3(.8,.84,1.)*smoothstep(.17,.09,s2)*smoothstep(-.6,-.1,y)*smoothstep(.6,.2,y);
+    c += vec3(.75,.8,.95)*smoothstep(-.6,-.96,r.z);
+    return c;
+  }`;
+
+  // Chains lying along the screen's edges and across its corners, drawn as a second pass over the
+  // outer bands so they never slow the hero. Each path is a slack curve around a straight guide line.
+  const SIDE_COUNT = 8;
+  const SIDE_FS = `#version 300 es
+  precision highp float;
+  in vec2 vUv; out vec4 o;
+  uniform vec2 uRes, uPointer;
+  uniform float uTime, uSlide;
+  // Per chain: scale, inset, reveal, hidden distance / wander, frequency, phase, phase / guide point, inward normal
+  uniform vec4 uSide[${SIDE_COUNT * 3}];
+
+  ${STUDIO}
+
+  const float LA = .0062, LR = .0105, LW = .0031, PITCH = 2.*(LA + LR - LW);
+  float linkD(vec3 q){
+    vec2 a = vec2(q.x, max(abs(q.y) - LA, 0.));
+    return length(vec2(length(a) - LR, q.z)) - LW;
+  }
+  float chainD(vec3 q){
+    float k0 = floor(q.y/(2.*PITCH) + .5);
+    float k1 = floor((q.y - PITCH)/(2.*PITCH) + .5);
+    vec3 a = vec3(q.x, q.y - k0*2.*PITCH, q.z);
+    vec3 b = vec3(q.z, q.y - (k1*2. + 1.)*PITCH, -q.x);
+    return min(linkD(a), linkD(b));
+  }
+
+  void main(){
+    float asp = uRes.x/uRes.y;
+    vec2 p = vec2((vUv.x-.5)*asp, vUv.y-.5);
+    float pix = 1./uRes.y;
+    vec4 acc = vec4(0.);
+
+    for (int i=0; i<${SIDE_COUNT}; i++) {
+      vec4 A = uSide[i*3], B = uSide[i*3 + 1], G = uSide[i*3 + 2];
+      float sc = A.x, inset = A.y, reveal = A.z, hide = A.w;
+      if (reveal <= .001) continue;
+      float a1 = B.x, w1 = B.y, f1 = B.z, f2 = B.w, a2 = a1*.24, w2 = w1*1.63;
+      float drift = .006*sin(uTime*.31 + f1);
+      float base = inset - hide + drift;
+      float slide = uSlide*(.6 + .4*sc);
+
+      // The guide line's frame: "out" is distance inward from it, "run" is along it, always heading upward.
+      vec2 inward = G.zw, dirn = vec2(-inward.y, inward.x);
+      if (dirn.y < 0.) dirn = -dirn;
+      vec2 dp = p - G.xy;
+      float outv = dot(dp, inward), run = dot(dp, dirn) - slide;
+
+      // Nearest point on the curve, by one Newton step from this pixel's position along the line.
+      float t1 = w1*run + f1, t2 = w2*run + f2;
+      float gx = base + a1*sin(t1) + a2*sin(t2);
+      float dg = a1*w1*cos(t1) + a2*w2*cos(t2);
+      float run0 = run + (outv - gx)*dg/(1. + dg*dg);
+      t1 = w1*run0 + f1; t2 = w2*run0 + f2;
+      gx = base + a1*sin(t1) + a2*sin(t2);
+      dg = a1*w1*cos(t1) + a2*w2*cos(t2);
+      float L = sqrt(1. + dg*dg);
+      vec2 localN = vec2(1., -dg)/L, localT = vec2(-dg, -1.)/L;
+      float across = dot(vec2(outv - gx, run - run0), localN);
+      if (abs(across) > .022*sc) continue;
+      vec2 N = inward*localN.x + dirn*localN.y, T = inward*localT.x + dirn*localT.y;
+
+      // Arc length of the wandering curve, so links keep an even spacing along it.
+      float stretch = 1. + (a1*a1*w1*w1 + a2*a2*w2*w2)*.25;
+      float along = -(run0*stretch + a1*a1*w1*sin(2.*t1)*.125 + a2*a2*w2*sin(2.*t2)*.125);
+      vec2 rel = vec2(across, along)/sc;
+
+      float turn = .78 + .1*sin(uTime*.3 + f1*2.);
+      float ct = cos(turn), st = sin(turn);
+      float z = .05, bestD = 1e9, zBest = z;
+      for (int j=0; j<26; j++) {
+        vec3 q = vec3(rel.x*ct - z*st, rel.y, rel.x*st + z*ct);
+        float d = chainD(q);
+        if (d < bestD) { bestD = d; zBest = z; }
+        if (d < .00015 || z < -.05) break;
+        z -= d*.9;
+      }
+      float cov = 1. - smoothstep(pix/sc*.1, pix/sc*1.15, bestD);
+      if (cov <= 0.) continue;
+
+      const vec2 k = vec2(1.,-1.);
+      const float e = .0006;
+      vec3 q0 = vec3(rel.x, rel.y, zBest);
+      vec3 n = vec3(0.);
+      for (int s=0; s<4; s++) {
+        vec3 o4 = s == 0 ? k.xyy : s == 1 ? k.yyx : s == 2 ? k.yxy : k.xxx;
+        vec3 w = q0 + o4*e;
+        n += o4*chainD(vec3(w.x*ct - w.z*st, w.y, w.x*st + w.z*ct));
+      }
+      n = normalize(n);
+      // Back from the chain's bent frame to the room.
+      vec3 world = normalize(vec3(N*n.x + T*n.y, n.z));
+      vec3 r = reflect(vec3(0.,0.,-1.), world);
+      r.xy += uPointer*vec2(.14,-.1);
+      vec3 col = studio(normalize(r));
+      col *= .78 + .22*pow(1. - clamp(world.z,0.,1.), 4.);
+      col *= .8 + .2*smoothstep(.68, 1., sc);   // the smaller chains sit further back
+      col /= 1. + .14*col;
+      acc = vec4(col*cov + acc.rgb*(1. - cov), cov + acc.a*(1. - cov));
+    }
+    o = acc;
+  }`;
+
   // Compiled per scene: only the hero's program has its raymarcher and only the last section's has
   // the chains, since some drivers flatten branches and would otherwise pay for both everywhere.
   const FS = (hero, chains) => `#version 300 es
@@ -100,20 +217,7 @@
   vec2  h22(vec2 p){ float n = h21(p); return vec2(n, h21(p+n+7.1)); }
 
   #if HERO || CHAINS
-  // The studio the metal reflects. A broad overhead gradient and a pale floor let the curve of the
-  // surface read as volume; the strips add the crisp streaks of polished chrome.
-  vec3 studio(vec3 r){
-    float y = r.y;
-    float a = atan(r.x, r.z);
-    vec3 c = mix(vec3(.02,.022,.03), vec3(.2,.215,.25), smoothstep(.0,.55,y));
-    c = mix(c, vec3(1.75,1.78,1.85), smoothstep(.5,.6,y)*smoothstep(1.,.86,y));
-    c += vec3(.44,.47,.54)*smoothstep(-.06,-.85,y);
-    float s1 = abs(a - 1.85 + .3*y), s2 = abs(a + 1.15 - .35*y);
-    c += vec3(1.25,1.28,1.38)*smoothstep(.12,.06,s1)*smoothstep(-.7,-.25,y)*smoothstep(.75,.35,y);
-    c += vec3(.8,.84,1.)*smoothstep(.17,.09,s2)*smoothstep(-.6,-.1,y)*smoothstep(.6,.2,y);
-    c += vec3(.75,.8,.95)*smoothstep(-.6,-.96,r.z);
-    return c;
-  }
+  ${STUDIO}
   #endif
 
   #if HERO
@@ -403,7 +507,7 @@
     return s;
   }
   const UNIFORMS = ['uRes', 'uPointer', 'uTime', 'uVeins', 'uGrow', 'uHero', 'uStars', 'uCaustic', 'uChains', 'uChain', 'uScroll',
-    'uName', 'uNameBox', 'uNameReady', 'uObject', 'uRot', 'uThornA', 'uThornB'];
+    'uName', 'uNameBox', 'uNameReady', 'uObject', 'uRot', 'uThornA', 'uThornB', 'uSide', 'uSlide'];
   function build(fsSource) {
     const prog = gl.createProgram();
     gl.attachShader(prog, compile(gl.VERTEX_SHADER, VS));
@@ -415,11 +519,12 @@
     return { prog, u };
   }
 
-  let heroProg, plain, chainProg;
+  let heroProg, plain, chainProg, sideProg;
   try {
     heroProg = build(FS(true, false));
     plain = build(FS(false, false));
     chainProg = build(FS(false, true));
+    sideProg = build(SIDE_FS);
   } catch (err) {
     console.error('LunaGL: shader failed', err);
     document.documentElement.classList.add('no-gl');
@@ -591,6 +696,27 @@
   const object = [0, 0, 1];
   const chainData = new Float32Array(16);
 
+  // The edge chains, smaller first so the larger lie on top. Left and right differ on purpose.
+  // Each: side, scale, inset, wander, frequency, phase, phase, how late in the scroll it arrives.
+  const SIDE_CHAINS = [
+    [-1, .74, .05, .036, 2.7, 1.1, .4, .2],
+    [1, .68, .024, .028, 3.4, 3.6, 2.2, .28],
+    [-1, 1, .034, .046, 1.9, 4.7, 2.9, 0],
+    [1, .88, .062, .042, 2.3, .2, 5.1, .1],
+  ];
+  // Chains across the corners, in the positions Luna sketched. Ends are fractions of the half-width
+  // and absolute heights, so the shape holds at any window size. They run past the screen at both ends.
+  // Each: start, end, scale, wander, frequency, phase, phase, how late in the scroll it arrives.
+  const CORNER_CHAINS = [
+    [[.53, -.5], [.985, -.295], .82, .012, 6.4, 2.3, .9, .3],
+    [[.76, .49], [1, .388], .74, .009, 9.1, 1, 4.2, .42],
+    [[-.995, -.323], [-.8, -.5], .78, .01, 8.2, 5.1, 1.7, .36],
+    [[-.99, .341], [-.62, .5], .9, .014, 6.9, .4, 3.3, .22],
+  ];
+  const sideData = new Float32Array(SIDE_COUNT * 12);
+  const sideLayout = [];
+  let sideStrip = .2, sideTop = .2, sideBottom = .24, sideNarrow = false;
+
   function layoutScene() {
     // The whole lockup, thorns to last letter, spans about -1.4..1.25 across and 1.32 each way up
     // and down. Scale it to fit whichever runs out first, and centre it.
@@ -611,6 +737,64 @@
       innerX, inner, 4.2, 1,
       outerX, outer, 5.4, 0
     ]);
+
+    // How far the edge chains may wander in is set by the margin beside the page's content.
+    const margin = Math.max(cssW - 1040, 0) / 2 / cssH;
+    const reach = Math.min(Math.max(margin / .15, .32), 1.15);
+    sideStrip = Math.min(.17 * reach + .035, w);
+    sideNarrow = narrow;
+
+    // Corner chains come first so the edge chains lie on top of them where they cross.
+    sideLayout.length = 0;
+    CORNER_CHAINS.forEach(([from, to, scale, wander, freq, f1, f2, late]) => {
+      const ax = from[0] * w, ay = from[1], bx = to[0] * w, by = to[1];
+      const ox = (ax + bx) / 2, oy = (ay + by) / 2, len = Math.hypot(bx - ax, by - ay);
+      let nx = -(by - ay) / len, ny = (bx - ax) / len;
+      if (nx * ox + ny * oy > 0) { nx = -nx; ny = -ny; }
+      // Far enough out to start beyond the screen's corner.
+      const cornerX = Math.sign(ox) * w, cornerY = Math.sign(oy) * .5;
+      const out = Math.abs((cornerX - ox) * nx + (cornerY - oy) * ny);
+      sideLayout.push({ corner: true, scale, inset: 0, wander, freq, f1, f2, late, ox, oy, nx, ny, span: out + wander * 1.3 + .035 });
+    });
+    SIDE_CHAINS.forEach(([side, scale, inset, wander, freq, f1, f2, late]) => {
+      const thin = narrow ? .6 : 1, into = narrow ? inset * .25 * reach : inset * reach, swing = wander * reach;
+      sideLayout.push({ corner: false, skip: narrow && scale < .8, scale: scale * thin, inset: into, wander: swing, freq, f1, f2, late, ox: side * w, oy: 0, nx: -side, ny: 0, span: into + swing * 1.24 + .02 });
+    });
+  }
+
+  function drawSideChains(s, time) {
+    const { prog, u: U } = sideProg;
+    gl.useProgram(prog);
+    gl.uniform2f(U.uRes, W, H);
+    gl.uniform2f(U.uPointer, s.px, s.py);
+    gl.uniform1f(U.uTime, time);
+    gl.uniform1f(U.uSlide, s.scroll * .1);
+    sideLayout.forEach((c, i) => {
+      const k = Math.min(Math.max((s.side - c.late) / (1 - c.late), 0), 1);
+      // On a tall phone only the two main edge chains show, finer and half off the edge, clear of the text.
+      const off = c.skip || (sideNarrow && c.corner);
+      const reveal = off ? 0 : k * k * (3 - 2 * k);
+      sideData.set([c.scale, c.inset, reveal, (1 - reveal) * c.span, c.wander, c.freq, c.f1, c.f2, c.ox, c.oy, c.nx, c.ny], i * 12);
+    });
+    gl.uniform4fv(U.uSide, sideData);
+    const strip = Math.ceil(sideStrip * H);
+    gl.enable(gl.BLEND);
+    gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+    gl.enable(gl.SCISSOR_TEST);
+    gl.scissor(0, 0, strip, H);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+    gl.scissor(W - strip, 0, strip, H);
+    gl.drawArrays(gl.TRIANGLES, 0, 3);
+    if (!sideNarrow) {
+      // The middle of the top and bottom edges, where the corner chains reach in.
+      const mid = W - strip * 2, top = Math.ceil(sideTop * H), bottom = Math.ceil(sideBottom * H);
+      gl.scissor(strip, H - top, mid, top);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+      gl.scissor(strip, 0, mid, bottom);
+      gl.drawArrays(gl.TRIANGLES, 0, 3);
+    }
+    gl.disable(gl.SCISSOR_TEST);
+    gl.disable(gl.BLEND);
   }
 
   let heroOn = true;
@@ -689,6 +873,7 @@
     }
     gl.bindVertexArray(vao);
     gl.drawArrays(gl.TRIANGLES, 0, 3);
+    if (s.side > .002) drawSideChains(s, time);
   }
 
   window.LunaGL = {

@@ -392,7 +392,7 @@
   /* ---------- main loop ---------- */
 
   const heroPin = $('.hero-pin');
-  const st = { hero: 0, veins: 1, stars: 0, caustic: 0, chains: 0, scroll: 0, px: 0, py: 0, grow: calm ? 1 : 0 };
+  const st = { hero: 0, veins: 1, stars: 0, caustic: 0, chains: 0, side: 0, scroll: 0, px: 0, py: 0, grow: calm ? 1 : 0 };
   const pointer = { x: 0, y: 0 };
   if (fine && !calm) addEventListener('pointermove', e => {
     pointer.x = e.clientX / innerWidth * 2 - 1;
@@ -440,6 +440,8 @@
     // A few stars are already out behind the moon, and the sky fills in as it leaves.
     st.stars = (.3 + .7 * smooth(.45, .95, leaving)) * (1 - caustic * .72);
     st.chains = chainsIn;
+    // Chains creep in from the screen's edges as the first page scrolls away, then stay.
+    st.side = smooth(.02, .58, leaving);
     st.scroll = smoothY / vh;
     st.px = damp(st.px, pointer.x, 3.2, dt);
     st.py = damp(st.py, pointer.y, 3.2, dt);
